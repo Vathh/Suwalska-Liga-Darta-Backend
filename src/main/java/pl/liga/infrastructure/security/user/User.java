@@ -28,10 +28,11 @@ public class User implements UserDetails {
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "user_password")
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
     private Role role;
 
     @OneToMany(mappedBy = "user")

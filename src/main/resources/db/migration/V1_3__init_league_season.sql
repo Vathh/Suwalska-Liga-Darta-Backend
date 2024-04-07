@@ -5,6 +5,6 @@ CREATE TABLE league_season
     start_date        DATE            NOT NULL,
     end_date          DATE            NOT NULL,
     to_delete         BOOLEAN         NOT NULL,
-    rank_count        INT             NOT NULL,
+    rank_count        SMALLINT        NOT NULL,
     PRIMARY KEY (season_id)
 );

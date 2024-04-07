@@ -2,11 +2,18 @@ server:
   port: 8190
   servlet:
     context-path: /league
-
+security:
+  jwt:
+    secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+    expiration: 3600000
+    refresh-token:
+      expiration: 3600000
 spring:
   security:
-    #    enabled: true
+#    enabled: true
     enabled: false
+    filter:
+      order : 10
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
@@ -23,8 +30,8 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-        #        show_sql: true
-        #        format_sql: true
+#        show_sql: true
+#        format_sql: true
         #        use_sql_comments: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   mvc:
