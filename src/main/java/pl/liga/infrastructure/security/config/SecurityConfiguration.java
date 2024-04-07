@@ -14,11 +14,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static pl.liga.infrastructure.security.user.Permission.*;
 import static pl.liga.infrastructure.security.user.Role.ADMIN;
-import static pl.liga.infrastructure.security.user.Role.MANAGER;
+import static pl.liga.infrastructure.security.user.Role.USER;
 
 @Configuration
 @EnableWebSecurity
@@ -26,17 +25,9 @@ import static pl.liga.infrastructure.security.user.Role.MANAGER;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui/**",
-            "/webjars/**",
-            "/swagger-ui.html"
+    private static final String[] WHITE_LIST_URL = {
+            "/login",
+            "/error"
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -50,11 +41,22 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), USER.name())
+                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), USER_CREATE.name())
+                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), USER_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), USER_DELETE.name())
+
+                                .requestMatchers(GET,
+                                        "").hasAnyAuthority(USER_READ.name())
+                                .requestMatchers(POST,"").hasAnyAuthority(USER_READ.name())
+                                .requestMatchers(PATCH,"").hasAnyAuthority(USER_READ.name())
+                                .requestMatchers(DELETE,"").hasAnyAuthority(USER_READ.name())
+
+                                .requestMatchers(GET,"").hasAnyAuthority(ADMIN_READ.name())
+                                .requestMatchers(POST,"").hasAnyAuthority(ADMIN_READ.name())
+                                .requestMatchers(PATCH,"").hasAnyAuthority(ADMIN_READ.name())
+                                .requestMatchers(DELETE,"").hasAnyAuthority(ADMIN_READ.name())
                                 .anyRequest()
                                 .authenticated()
                 )

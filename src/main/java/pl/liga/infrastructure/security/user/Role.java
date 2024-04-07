@@ -13,26 +13,24 @@ import static pl.liga.infrastructure.security.user.Permission.*;
 
 @RequiredArgsConstructor
 public enum Role {
-
-    USER(Collections.emptySet()),
     ADMIN(
             Set.of(
                     ADMIN_READ,
                     ADMIN_UPDATE,
                     ADMIN_DELETE,
                     ADMIN_CREATE,
-                    MANAGER_READ,
-                    MANAGER_UPDATE,
-                    MANAGER_DELETE,
-                    MANAGER_CREATE
+                    USER_READ,
+                    USER_UPDATE,
+                    USER_DELETE,
+                    USER_CREATE
             )
     ),
-    MANAGER(
+    USER(
             Set.of(
-                    MANAGER_READ,
-                    MANAGER_UPDATE,
-                    MANAGER_DELETE,
-                    MANAGER_CREATE
+                    USER_READ,
+                    USER_UPDATE,
+                    USER_DELETE,
+                    USER_CREATE
             )
     )
 

@@ -6,4 +6,3 @@ CREATE TABLE league_user
     user_role         VARCHAR(255)    NOT NULL,
     PRIMARY KEY (user_id)
 );
-
