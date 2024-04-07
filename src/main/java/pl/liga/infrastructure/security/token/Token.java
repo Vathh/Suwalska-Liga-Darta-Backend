@@ -16,11 +16,11 @@ import pl.liga.infrastructure.security.user.User;
 public class Token {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "token_id")
     public Integer token_id;
 
-    @Column(name = "token", unique = true)
+    @Column(name = "token")
     public String token;
 
     @Enumerated(EnumType.STRING)

@@ -25,6 +25,8 @@ spring:
       connectionTimeout: 20000
       minimumIdle: 10
       maximumPoolSize: 20
+  flyway:
+    baselineOnMigrate: true
   jpa:
     hibernate:
       ddl-auto: none
