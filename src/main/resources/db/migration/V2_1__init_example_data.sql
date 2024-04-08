@@ -1,7 +1,3 @@
---insert into league_role (role) values
---('user'),
---('admin');
---
 --insert into league_user (user_name, password, active) values
 --('Karol', '$2a$12$WtGwTWfG3RR9cuP1z1pgiupwCL2sK63Ts2GmvrPxKeOYyDYqJ0du6', true),
 --('Marian', '$2a$12$tgknuYcWJuLxuzc6jXhnCeY1Xzv2ElCyECyv5aXapgVrKO84dKWN6', true),
@@ -11,6 +7,9 @@
 --
 --insert into league_user_role values
 --(1,1), (2,1), (3,1), (4,2), (5,2);
+
+insert into league_user (user_name, user_password, user_role) values
+    ('admin', '$2a$12$oHJbb5zXZmTWFlhg.Hu8quxscFuoXpeN5YIJcVpnc6WMgtDWjijs6', 'ADMIN');
 
 insert into league_player (player_name) values
 ('EMPTY'),

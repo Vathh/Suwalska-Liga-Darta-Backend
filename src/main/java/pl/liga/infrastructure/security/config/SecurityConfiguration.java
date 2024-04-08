@@ -25,9 +25,18 @@ import static pl.liga.infrastructure.security.user.Role.USER;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] WHITE_LIST_URL = {
-            "/login",
-            "/error"
+    private static final String[] GET_WHITE_LIST_URL = {
+            "/match",
+            "/player",
+            "/season",
+            "/season/details",
+            "/tournament",
+            "/tournament/active",
+            "/tournament/details"
+    };
+
+    private static final String[] POST_WHITE_LIST_URL = {
+            "/authorization/authenticate"
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -39,32 +48,42 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers(WHITE_LIST_URL)
-                                .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), USER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), USER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), USER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), USER_DELETE.name())
+                        req.requestMatchers(GET, GET_WHITE_LIST_URL)
+                            .permitAll()
+                            .requestMatchers(POST, POST_WHITE_LIST_URL)
+                            .permitAll()
 
-                                .requestMatchers(GET,
-                                        "").hasAnyAuthority(USER_READ.name())
-                                .requestMatchers(POST,"").hasAnyAuthority(USER_READ.name())
-                                .requestMatchers(PATCH,"").hasAnyAuthority(USER_READ.name())
-                                .requestMatchers(DELETE,"").hasAnyAuthority(USER_READ.name())
+                            .requestMatchers(GET,
+                                    "/match/active").hasAnyAuthority(USER_READ.name())
+                            .requestMatchers(POST,
+                                    "/achievement",
+                                            "/authorization/refresh").hasAnyAuthority(USER_CREATE.name())
+                            .requestMatchers(PATCH,
+                                    "/match/details").hasAnyAuthority(USER_UPDATE.name())
+                            .requestMatchers(DELETE,
+                                    "").hasAnyAuthority(USER_DELETE.name())
 
-                                .requestMatchers(GET,"").hasAnyAuthority(ADMIN_READ.name())
-                                .requestMatchers(POST,"").hasAnyAuthority(ADMIN_READ.name())
-                                .requestMatchers(PATCH,"").hasAnyAuthority(ADMIN_READ.name())
-                                .requestMatchers(DELETE,"").hasAnyAuthority(ADMIN_READ.name())
-                                .anyRequest()
-                                .authenticated()
+                            .requestMatchers(GET,
+                                    "").hasAnyAuthority(ADMIN_READ.name())
+                            .requestMatchers(POST,
+                                    "/player",
+                                            "/season"
+//                                    ,
+//                                            "/authorization/register"
+                            ).hasAnyAuthority(ADMIN_CREATE.name())
+                            .requestMatchers(PATCH,
+                                    "/tournament/start").hasAnyAuthority(ADMIN_UPDATE.name())
+                            .requestMatchers(DELETE,
+                                    "/season/details",
+                                    "/tournament/details").hasAnyAuthority(ADMIN_DELETE.name())
+                            .anyRequest()
+                            .authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
+                        logout.logoutUrl("/logout")
                                 .addLogoutHandler(logoutHandler)
                                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
                 )
