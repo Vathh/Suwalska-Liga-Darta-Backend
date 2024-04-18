@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -46,6 +47,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(httpSecurityCorsConfigurer ->
+                        httpSecurityCorsConfigurer.configurationSource(request ->
+                                        new CorsConfiguration().applyPermitDefaultValues()
+                                ))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(GET, GET_WHITE_LIST_URL)
@@ -68,8 +73,6 @@ public class SecurityConfiguration {
                             .requestMatchers(POST,
                                     "/player",
                                             "/season"
-//                                    ,
-//                                            "/authorization/register"
                             ).hasAnyAuthority(ADMIN_CREATE.name())
                             .requestMatchers(PATCH,
                                     "/tournament/start").hasAnyAuthority(ADMIN_UPDATE.name())
@@ -91,4 +94,6 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
+
 }

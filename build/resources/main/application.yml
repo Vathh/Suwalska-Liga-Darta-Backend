@@ -10,8 +10,8 @@ security:
       expiration: 3600000
 spring:
   security:
-#    enabled: true
-    enabled: false
+    enabled: true
+#    enabled: false
     filter:
       order : 10
   datasource:

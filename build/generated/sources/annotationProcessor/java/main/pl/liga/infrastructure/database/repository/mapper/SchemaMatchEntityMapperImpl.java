@@ -8,7 +8,7 @@ import pl.liga.infrastructure.database.entity.SchemaMatchEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-08T18:09:34+0200",
+    date = "2024-04-18T19:21:56+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
