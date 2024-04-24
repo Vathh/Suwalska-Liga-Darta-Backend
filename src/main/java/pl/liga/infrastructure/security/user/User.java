@@ -1,10 +1,7 @@
 package pl.liga.infrastructure.security.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.liga.infrastructure.security.token.Token;
@@ -12,7 +9,8 @@ import pl.liga.infrastructure.security.token.Token;
 import java.util.Collection;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +24,7 @@ public class User implements UserDetails {
     private Integer userId;
 
     @Column(name = "user_name")
-    private String userName;
+    private String username;
 
     @Column(name = "user_password")
     private String password;
@@ -35,7 +33,7 @@ public class User implements UserDetails {
     @Column(name = "user_role")
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Token> tokens;
 
     @Override
@@ -45,7 +43,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request){
         var user = User.builder()
-                .userName(request.getUserName())
+                .username(request.getUserName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
@@ -52,7 +52,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByUserName(request.getUserName()).orElseThrow();
+        var user = userRepository.findByUsername(request.getUserName()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -101,7 +101,7 @@ public class AuthenticationService {
         refreshToken = authHeader.substring(7);
         userName = jwtService.extractUserName(refreshToken);
         if(userName != null){
-            var user = this.userRepository.findByUserName(userName).orElseThrow();
+            var user = this.userRepository.findByUsername(userName).orElseThrow();
             if(jwtService.isTokenValid(refreshToken, user)){
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);

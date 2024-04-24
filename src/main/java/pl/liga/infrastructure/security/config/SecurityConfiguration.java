@@ -59,26 +59,26 @@ public class SecurityConfiguration {
                             .permitAll()
 
                             .requestMatchers(GET,
-                                    "/match/active").hasAnyAuthority(USER_READ.name())
+                                    "/match/active").hasAnyAuthority(USER_READ.getPermission())
                             .requestMatchers(POST,
                                     "/achievement",
-                                            "/authorization/refresh").hasAnyAuthority(USER_CREATE.name())
+                                            "/authorization/refresh").hasAnyAuthority(USER_CREATE.getPermission())
                             .requestMatchers(PATCH,
-                                    "/match/details").hasAnyAuthority(USER_UPDATE.name())
+                                    "/match/details").hasAnyAuthority(USER_UPDATE.getPermission())
                             .requestMatchers(DELETE,
-                                    "").hasAnyAuthority(USER_DELETE.name())
+                                    "").hasAnyAuthority(USER_DELETE.getPermission())
 
                             .requestMatchers(GET,
-                                    "").hasAnyAuthority(ADMIN_READ.name())
+                                    "").hasAnyAuthority(ADMIN_READ.getPermission())
                             .requestMatchers(POST,
                                     "/player",
                                             "/season"
-                            ).hasAnyAuthority(ADMIN_CREATE.name())
+                            ).hasAnyAuthority(ADMIN_CREATE.getPermission())
                             .requestMatchers(PATCH,
-                                    "/tournament/start").hasAnyAuthority(ADMIN_UPDATE.name())
+                                    "/tournament/start").hasAnyAuthority(ADMIN_UPDATE.getPermission())
                             .requestMatchers(DELETE,
                                     "/season/details",
-                                    "/tournament/details").hasAnyAuthority(ADMIN_DELETE.name())
+                                    "/tournament/details").hasAnyAuthority(ADMIN_DELETE.getPermission())
                             .anyRequest()
                             .authenticated()
                 )
