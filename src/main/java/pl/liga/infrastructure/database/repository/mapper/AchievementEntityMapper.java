@@ -7,7 +7,7 @@ import org.mapstruct.ReportingPolicy;
 import pl.liga.domain.Achievement;
 import pl.liga.infrastructure.database.entity.AchievementEntity;
 
-@Mapper(componentModel = "spring", uses = { CycleAvoidingMappingContext.class, PlayerEntityMapper.class, TournamentEntityMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+//@Mapper(componentModel = "spring", uses = { CycleAvoidingMappingContext.class, PlayerEntityMapper.class, TournamentEntityMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AchievementEntityMapper {
 
     @Qualifiers.WithoutTournament
