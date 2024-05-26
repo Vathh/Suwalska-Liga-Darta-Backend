@@ -56,7 +56,7 @@ public class MatchRepository implements MatchDAO {
     public List<Match> findMatchesByTournamentId(Integer tournamentId) {
         return matchJpaRepository.findMatchesByTournamentId(tournamentId)
                                 .stream()
-                                .map(matchEntityMapper::mapFromEntity)
+                                .map(matchEntityMapper::mapFromEntityWithoutResultsAndAchievementsWithTournamentId)
                                 .toList();
     }
 
@@ -79,7 +79,12 @@ public class MatchRepository implements MatchDAO {
     public List<Match> findActiveMatches() {
         return matchJpaRepository.findActiveMatches()
                                 .stream()
-                                .map(matchEntityMapper::mapFromEntity)
+                                .map(matchEntityMapper::mapFromEntityWithoutResultsAndAchievementsWithTournamentId)
                                 .toList();
+    }
+
+    @Override
+    public void deleteMatchesByTournamentId(Integer tournamentId) {
+        matchJpaRepository.deleteMatchesByTournamentId(tournamentId);
     }
 }

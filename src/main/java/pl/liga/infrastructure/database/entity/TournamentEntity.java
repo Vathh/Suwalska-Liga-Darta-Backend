@@ -24,13 +24,13 @@ public class TournamentEntity {
     @Column(name = "tournament_date")
     private Date date;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
     private Set<ResultEntity> results;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
     private Set<AchievementEntity> achievements;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Set<MatchEntity> matches;
 
     @Column(name = "tournament_size")

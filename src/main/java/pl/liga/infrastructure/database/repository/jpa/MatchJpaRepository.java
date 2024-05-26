@@ -59,4 +59,11 @@ public interface MatchJpaRepository extends JpaRepository<MatchEntity, Integer> 
             """)
     void setPlayerB(final @Param("matchId") Integer matchId,
                     final @Param("playerId") Integer playerId);
+
+    @Modifying
+    @Query("""
+            DELETE FROM MatchEntity mt
+            WHERE mt.tournament.tournamentId = :tournamentId
+            """)
+    void deleteMatchesByTournamentId(@Param("tournamentId") Integer tournamentId);
 }

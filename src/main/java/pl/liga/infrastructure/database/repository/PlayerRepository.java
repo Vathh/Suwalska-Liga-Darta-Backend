@@ -1,6 +1,5 @@
 package pl.liga.infrastructure.database.repository;
 
-import jakarta.persistence.EntityGraph;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,12 +22,15 @@ public class PlayerRepository implements PlayerDAO {
 
     @Override
     public List<Player> findAll() {
-        return playerJpaRepository.findAll().stream().map(playerEntityMapper::mapFromEntity).toList();
+        return playerJpaRepository.findAll()
+                .stream()
+                .map(playerEntityMapper::mapFromEntityWithoutPlayerAndTournament)
+                .toList();
     }
 
     @Override
     public void savePlayer(Player player) {
-        PlayerEntity entity = playerEntityMapper.mapToEntity(player);
+        PlayerEntity entity = playerEntityMapper.mapToEntityWithoutResultsAndAchievements(player);
         playerJpaRepository.saveAndFlush(entity);
     }
 
@@ -37,12 +39,15 @@ public class PlayerRepository implements PlayerDAO {
 
         return playerJpaRepository.findPlayersByIdsWithoutResultsAndAchievements(playersIds)
                 .stream()
-                .map(playerEntityMapper::mapFromEntity)
+                .map(playerEntityMapper::mapFromEntityWithoutPlayerAndTournament)
                 .toList();
     }
 
     @Override
     public List<Player> findAllWithAchievementsAndResults() {
-        return playerJpaRepository.findAllWithAchievementsAndResults().stream().map(playerEntityMapper::mapFromEntity).toList();
+        return playerJpaRepository.findAllWithAchievementsAndResults()
+                .stream()
+                .map(playerEntityMapper::mapFromEntityWithoutPlayerAndTournament)
+                .toList();
     }
 }

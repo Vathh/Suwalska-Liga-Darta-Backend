@@ -1,25 +1,42 @@
 package pl.liga.infrastructure.database.repository.mapper;
 
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
 import pl.liga.domain.Match;
-import pl.liga.domain.Player;
-import pl.liga.domain.Tournament;
 import pl.liga.infrastructure.database.entity.MatchEntity;
 
-import java.util.List;
-
-@Mapper(componentModel = "spring", uses = {CycleAvoidingMappingContext.class, PlayerEntityMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", uses = { CycleAvoidingMappingContext.class, PlayerEntityMapper.class, TournamentEntityMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MatchEntityMapper {
 
-    @Named("FullMatch")
+    @Qualifiers.WithoutResultsAndAchievements
+    @Mappings({
+            @Mapping(target = "playerA", qualifiedBy = Qualifiers.WithoutResultsAndAchievements.class),
+            @Mapping(target = "playerB", qualifiedBy = Qualifiers.WithoutResultsAndAchievements.class),
+            @Mapping(target = "winner", qualifiedBy = Qualifiers.WithoutResultsAndAchievements.class),
+            @Mapping(target = "loser", qualifiedBy = Qualifiers.WithoutResultsAndAchievements.class),
+            @Mapping(target = "tournament", qualifiedBy = Qualifiers.IdOnly.class)
+    })
+    Match mapFromEntityWithoutResultsAndAchievementsWithTournamentId(MatchEntity entity);
+
+    @Qualifiers.Full
+    @Mappings({
+            @Mapping(target = "playerA", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "playerB", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "winner", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "loser", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "tournament", qualifiedBy = Qualifiers.Full.class)
+    })
     Match mapFromEntity(MatchEntity entity);
 
-    @Named("withoutAchievementsAndResults")
-    @Mapping(target = "playerA", source = "playerA", qualifiedByName = "withoutAchievementsAndResults")
-    @Mapping(target = "playerB", source = "playerB", qualifiedByName = "withoutAchievementsAndResults")
-    @Mapping(target = "winner", qualifiedByName = "withoutAchievementsAndResults")
-    @Mapping(target = "loser", qualifiedByName = "withoutAchievementsAndResults")
-    Match mapFromEntityWithoutAchievementsAndResults(MatchEntity entity);
-
+    @Qualifiers.Full
+    @Mappings({
+            @Mapping(target = "playerA", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "playerB", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "winner", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "loser", qualifiedBy = Qualifiers.Full.class),
+            @Mapping(target = "tournament", qualifiedBy = Qualifiers.Full.class)
+    })
     MatchEntity mapToEntity(Match match);
 }

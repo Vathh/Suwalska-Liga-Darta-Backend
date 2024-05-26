@@ -17,6 +17,6 @@ public interface MatchDAO {
     void updateMatch(Integer matchId, Integer winnerId, Integer loserId);
     void setPlayerA(Integer matchId, Integer playerId);
     void setPlayerB(Integer matchId, Integer playerId);
-
     List<Match> findActiveMatches();
+    void deleteMatchesByTournamentId(Integer tournamentId);
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.liga.api.dto.StartTournamentDTO;
+import pl.liga.business.dao.MatchDAO;
 import pl.liga.business.dao.TournamentDAO;
 import pl.liga.domain.Match;
 import pl.liga.domain.Player;
@@ -18,6 +19,7 @@ import java.util.List;
 public class TournamentService {
 
     private final TournamentDAO tournamentDAO;
+    private final MatchDAO matchDAO;
     private final PlayerService playerService;
     private final BracketService bracketService;
 
@@ -90,5 +92,11 @@ public class TournamentService {
     @Transactional
     public void deleteTournament(Integer tournamentId){
         tournamentDAO.deleteTournament(tournamentId);
+    }
+
+    @Transactional
+    public void cancelActiveTournament(Integer tournamentId) {
+        tournamentDAO.cancelActiveTournament(tournamentId);
+        matchDAO.deleteMatchesByTournamentId(tournamentId);
     }
 }

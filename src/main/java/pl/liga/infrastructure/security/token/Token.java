@@ -23,6 +23,7 @@ public class Token {
     @Column(name = "token")
     public String token;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "token_type")
     public TokenType tokenType = TokenType.BEARER;

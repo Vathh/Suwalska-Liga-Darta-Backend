@@ -47,12 +47,11 @@ logging:
         TRACE
       hibernate:
         SQL:
-          TRACE
+          DEBUG
         type:
           descriptor:
             sql:
-              BasicBinder:
-                TRACE
+              TRACE
 web:
   cors:
 #    allowed-origins: "http://localhost:3000"

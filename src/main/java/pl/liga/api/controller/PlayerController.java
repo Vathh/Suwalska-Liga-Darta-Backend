@@ -29,12 +29,6 @@ public class PlayerController {
                 .toList();
     }
 
-    @GetMapping(PLAYER_DETAILS)
-    public List<PlayerDTO> getSpecifiedPlayers(){
-        List<Integer> list = List.of(1, 2, 3, 4, 5);
-        return playerService.findPlayersByIdsWithoutResultsAndAchievements(list).stream().map(playerMapper::map).toList();
-    }
-
     @PostMapping
     public ResponseEntity<?> addPlayer(
             @Valid @RequestBody PlayerDTO playerDTO

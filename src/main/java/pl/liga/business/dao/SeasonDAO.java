@@ -14,4 +14,5 @@ public interface SeasonDAO {
 
     Season findBySeasonId(Integer seasonId);
     void deleteSeason(Integer seasonId);
+    List<Season> findAllWithTournaments();
 }

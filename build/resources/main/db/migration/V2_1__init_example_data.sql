@@ -1,14 +1,5 @@
---insert into league_user (user_name, password, active) values
---('Karol', '$2a$12$WtGwTWfG3RR9cuP1z1pgiupwCL2sK63Ts2GmvrPxKeOYyDYqJ0du6', true),
---('Marian', '$2a$12$tgknuYcWJuLxuzc6jXhnCeY1Xzv2ElCyECyv5aXapgVrKO84dKWN6', true),
---('Norbert', '$2a$12$0QiavKu05usb2kCKVrtbFudUkBX4XF1fFO5GX598NE6X0ZtZ8yzZG', true),
---('Wladek', '$2a$12$VasTXpHMYig05oacsr8CMezX/0t4pKWHYamQ4O6CJQRuRDinl7dwG', true),
---('Wojtek', '$2a$12$8NFmSojsYg1QE69Ff.C3luEUnwJQacpsIQWFj6s5wJVzuNW6J.CSK', true);
---
---insert into league_user_role values
---(1,1), (2,1), (3,1), (4,2), (5,2);
-
 insert into league_user (user_name, user_password, user_role) values
+    ('ciasto', '$2a$12$ToaaBFeqrW4sUO5wMp1ZVeholt/q7YG0neQ1TiNp94DhyKudmDgxm', 'USER'),
     ('admin', '$2a$12$oHJbb5zXZmTWFlhg.Hu8quxscFuoXpeN5YIJcVpnc6WMgtDWjijs6', 'ADMIN');
 
 insert into league_player (player_name) values
@@ -275,9 +266,7 @@ insert into league_schema_match (schema_size, player_a_number, player_b_number, 
 
 (48, null,    null,   'PF1',  'PG1',  'LI1',  null),
 
-(48, null,    null,   'PG1',  'PH1',  'PH1',  null),
-
-(48, null,    null,   'PH1',  null,  null,  25),
+(48, null,    null,   'PG1',  'FINAL30',  'FINAL30',  25),
 
 
 (48, null,    null,   'LA1',  'LB1', null,   1),
@@ -374,45 +363,45 @@ insert into league_schema_match (schema_size, player_a_number, player_b_number, 
 
 (32, null, null, 'PE1',  'PF1',  'LH1',   null),
 
-(32, null, null, 'PF1',  null,  null,   null),
+(32, null, null, 'PF1',  'FINAL25',  'FINAL25',   20),
 
-(32, null, null, 'LA1',  'LB1',  null,   null),
-(32, null, null, 'LA2',  'LB2',  null,   null),
-(32, null, null, 'LA3',  'LB3',  null,   null),
-(32, null, null, 'LA4',  'LB4',  null,   null),
-(32, null, null, 'LA5',  'LB5',  null,   null),
-(32, null, null, 'LA6',  'LB6',  null,   null),
-(32, null, null, 'LA7',  'LB7',  null,   null),
-(32, null, null, 'LA8',  'LB8',  null,   null),
+(32, null, null, 'LA1',  'LB1',  null,   2),
+(32, null, null, 'LA2',  'LB2',  null,   2),
+(32, null, null, 'LA3',  'LB3',  null,   2),
+(32, null, null, 'LA4',  'LB4',  null,   2),
+(32, null, null, 'LA5',  'LB5',  null,   2),
+(32, null, null, 'LA6',  'LB6',  null,   2),
+(32, null, null, 'LA7',  'LB7',  null,   2),
+(32, null, null, 'LA8',  'LB8',  null,   2),
 
-(32, null, null, 'LB1',  'LC1',  null,   null),
-(32, null, null, 'LB2',  'LC1',  null,   null),
-(32, null, null, 'LB3',  'LC2',  null,   null),
-(32, null, null, 'LB4',  'LC2',  null,   null),
-(32, null, null, 'LB5',  'LC3',  null,   null),
-(32, null, null, 'LB6',  'LC3',  null,   null),
-(32, null, null, 'LB7',  'LC4',  null,   null),
-(32, null, null, 'LB8',  'LC4',  null,   null),
+(32, null, null, 'LB1',  'LC1',  null,   2),
+(32, null, null, 'LB2',  'LC1',  null,   2),
+(32, null, null, 'LB3',  'LC2',  null,   2),
+(32, null, null, 'LB4',  'LC2',  null,   2),
+(32, null, null, 'LB5',  'LC3',  null,   2),
+(32, null, null, 'LB6',  'LC3',  null,   2),
+(32, null, null, 'LB7',  'LC4',  null,   2),
+(32, null, null, 'LB8',  'LC4',  null,   2),
 
-(32, null, null, 'LC1',  'LD1',  null,   null),
-(32, null, null, 'LC2',  'LD2',  null,   null),
-(32, null, null, 'LC3',  'LD3',  null,   null),
-(32, null, null, 'LC4',  'LD4',  null,   null),
+(32, null, null, 'LC1',  'LD1',  null,   4),
+(32, null, null, 'LC2',  'LD2',  null,   4),
+(32, null, null, 'LC3',  'LD3',  null,   4),
+(32, null, null, 'LC4',  'LD4',  null,   4),
 
-(32, null, null, 'LD1',  'LE1',  null,   null),
-(32, null, null, 'LD2',  'LE1',  null,   null),
-(32, null, null, 'LD3',  'LE2',  null,   null),
-(32, null, null, 'LD4',  'LE2',  null,   null),
+(32, null, null, 'LD1',  'LE1',  null,   6),
+(32, null, null, 'LD2',  'LE1',  null,   6),
+(32, null, null, 'LD3',  'LE2',  null,   6),
+(32, null, null, 'LD4',  'LE2',  null,   6),
 
-(32, null, null, 'LE1',  'LF1',  null,   null),
-(32, null, null, 'LE2',  'LF2',  null,   null),
+(32, null, null, 'LE1',  'LF1',  null,   8),
+(32, null, null, 'LE2',  'LF2',  null,   8),
 
-(32, null, null, 'LF1',  'LG1',  null,   null),
-(32, null, null, 'LF2',  'LG1',  null,   null),
+(32, null, null, 'LF1',  'LG1',  null,   10),
+(32, null, null, 'LF2',  'LG1',  null,   10),
 
-(32, null, null, 'LG1',  'LH1',  null,   null),
+(32, null, null, 'LG1',  'LH1',  null,   12),
 
-(32, null, null, 'LH1',  'PF1',  null,   null),
+(32, null, null, 'LH1',  'PF1',  null,   15),
 
 
 
@@ -426,37 +415,37 @@ insert into league_schema_match (schema_size, player_a_number, player_b_number, 
 (16, 7, 10, 'PA7',  'PB4',  'LA4',   null),
 (16, 15, 2, 'PA8',  'PB4',  'LA4',   null),
 
-(16, 1, 16, 'PB1',  'PC1',  'LB4',   null),
-(16, 9, 8,  'PB2',  'PC1',  'LB3',   null),
-(16, 5, 12, 'PB3',  'PC2',  'LB2',   null),
-(16, 13, 4, 'PB4',  'PC2',  'LB1',   null),
+(16, null, null, 'PB1',  'PC1',  'LB4',   null),
+(16, null, null,  'PB2',  'PC1',  'LB3',   null),
+(16, null, null, 'PB3',  'PC2',  'LB2',   null),
+(16, null, null, 'PB4',  'PC2',  'LB1',   null),
 
-(16, 1, 16, 'PC1',  'PD1',  'LD1',   null),
-(16, 9, 8,  'PC2',  'PD1',  'LD2',   null),
+(16, null, null, 'PC1',  'PD1',  'LD1',   null),
+(16, null, null,  'PC2',  'PD1',  'LD2',   null),
 
-(16, 1, 16, 'PD1',  'PE1',  'LF1',   null),
+(16, null, null, 'PD1',  'PE1',  'LF1',   null),
 
-(16, 1, 16, 'PE1',  null,  null,   null),
+(16, null, null, 'PE1',  'FINAL20',  'FINAL20',   15),
 
-(16, 1, 16, 'LA1',  'LB1',  null,   null),
-(16, 9, 8,  'LA2',  'LB2',  null,   null),
-(16, 5, 12, 'LA3',  'LB3',  null,   null),
-(16, 13, 4, 'LA4',  'LB4',  null,   null),
+(16, null, null, 'LA1',  'LB1',  null,   1),
+(16, null, null,  'LA2',  'LB2',  null,   1),
+(16, null, null, 'LA3',  'LB3',  null,   1),
+(16, null, null, 'LA4',  'LB4',  null,   1),
 
-(16, 1, 16, 'LB1',  'LC1',  null,   null),
-(16, 9, 8,  'LB2',  'LC1',  null,   null),
-(16, 5, 12, 'LB3',  'LC2',  null,   null),
-(16, 13, 4, 'LB4',  'LC2',  null,   null),
+(16, null, null, 'LB1',  'LC1',  null,   3),
+(16, null, null,  'LB2',  'LC1',  null,   3),
+(16, null, null, 'LB3',  'LC2',  null,   3),
+(16, null, null, 'LB4',  'LC2',  null,   3),
 
-(16, 1, 16, 'LC1',  'LD1',  null,   null),
-(16, 9, 8,  'LC2',  'LD2',  null,   null),
+(16, null, null, 'LC1',  'LD1',  null,   5),
+(16, null, null,  'LC2',  'LD2',  null,   5),
 
-(16, 1, 16, 'LD1',  'LE1',  null,   null),
-(16, 9, 8,  'LD2',  'LE1',  null,   null),
+(16, null, null, 'LD1',  'LE1',  null,   7),
+(16, null, null,  'LD2',  'LE1',  null,   7),
 
-(16, 9, 8,  'LE2',  'LF1',  null,   null),
+(16, null, null,  'LE1',  'LF1',  null,   9),
 
-(16, 9, 8,  'LF1',  'PE1',  null,   null);
+(16, null, null,  'LF1',  'PE1',  null,   12);
 
 insert into league_match (player_a_id, player_b_id, winner_id, loser_id, tournament_id, markup, winner_markup, loser_markup, points, match_active) values
 (2, null,       2,  null,   1,  'PA1',  'PB1',  'LA1',  null, false),

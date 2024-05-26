@@ -16,7 +16,7 @@ import pl.liga.infrastructure.database.entity.ResultEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-24T20:35:06+0200",
+    date = "2024-05-26T09:41:34+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -25,12 +25,12 @@ public class PlayerEntityMapperImpl implements PlayerEntityMapper {
     @Autowired
     private CycleAvoidingMappingContext cycleAvoidingMappingContext;
     @Autowired
-    private AchievementEntityMapper achievementEntityMapper;
-    @Autowired
     private ResultEntityMapper resultEntityMapper;
+    @Autowired
+    private AchievementEntityMapper achievementEntityMapper;
 
     @Override
-    public Player mapFromEntity(PlayerEntity entity) {
+    public Player mapFromEntityWithoutResultsAndAchievements(PlayerEntity entity) {
         if ( entity == null ) {
             return null;
         }
@@ -41,10 +41,70 @@ public class PlayerEntityMapperImpl implements PlayerEntityMapper {
 
         player.playerId( entity.getPlayerId() );
         player.name( entity.getName() );
-        player.achievements( achievementEntitySetToAchievementList( entity.getAchievements() ) );
-        player.results( resultEntitySetToResultList( entity.getResults() ) );
 
         return player.build();
+    }
+
+    @Override
+    public Player mapFromEntityWithoutPlayerAndTournament(PlayerEntity entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        Player.PlayerBuilder player = Player.builder();
+
+        cycleAvoidingMappingContext.storeMappedInstance( entity, player );
+
+        player.achievements( achievementEntitySetToAchievementList( entity.getAchievements() ) );
+        player.results( resultEntitySetToResultList( entity.getResults() ) );
+        player.playerId( entity.getPlayerId() );
+        player.name( entity.getName() );
+
+        return player.build();
+    }
+
+    @Override
+    public PlayerEntity mapToEntityWithoutResultsAndAchievements(Player player) {
+        if ( player == null ) {
+            return null;
+        }
+
+        PlayerEntity.PlayerEntityBuilder playerEntity = PlayerEntity.builder();
+
+        cycleAvoidingMappingContext.storeMappedInstance( player, playerEntity );
+
+        playerEntity.playerId( player.getPlayerId() );
+        playerEntity.name( player.getName() );
+
+        return playerEntity.build();
+    }
+
+    @Override
+    public List<Achievement> mapAchievementsWithoutPlayerAndTournament(List<AchievementEntity> achievements) {
+        if ( achievements == null ) {
+            return null;
+        }
+
+        List<Achievement> list = new ArrayList<Achievement>( achievements.size() );
+        for ( AchievementEntity achievementEntity : achievements ) {
+            list.add( achievementEntityMapper.mapFromEntityWithoutPlayerAndTournament( achievementEntity ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Result> mapResultsWithoutPlayerAndTournament(List<ResultEntity> results) {
+        if ( results == null ) {
+            return null;
+        }
+
+        List<Result> list = new ArrayList<Result>( results.size() );
+        for ( ResultEntity resultEntity : results ) {
+            list.add( resultEntityMapper.mapFromEntityWithoutPlayerAndTournament( resultEntity ) );
+        }
+
+        return list;
     }
 
     @Override
@@ -57,16 +117,16 @@ public class PlayerEntityMapperImpl implements PlayerEntityMapper {
 
         cycleAvoidingMappingContext.storeMappedInstance( player, playerEntity );
 
-        playerEntity.playerId( player.getPlayerId() );
-        playerEntity.name( player.getName() );
         playerEntity.achievements( achievementListToAchievementEntitySet( player.getAchievements() ) );
         playerEntity.results( resultListToResultEntitySet( player.getResults() ) );
+        playerEntity.playerId( player.getPlayerId() );
+        playerEntity.name( player.getName() );
 
         return playerEntity.build();
     }
 
     @Override
-    public Player mapFromEntityWithoutAchievementsAndResults(PlayerEntity entity) {
+    public Player mapFromEntity(PlayerEntity entity) {
         if ( entity == null ) {
             return null;
         }
@@ -75,6 +135,8 @@ public class PlayerEntityMapperImpl implements PlayerEntityMapper {
 
         cycleAvoidingMappingContext.storeMappedInstance( entity, player );
 
+        player.achievements( achievementEntitySetToAchievementList1( entity.getAchievements() ) );
+        player.results( resultEntitySetToResultList1( entity.getResults() ) );
         player.playerId( entity.getPlayerId() );
         player.name( entity.getName() );
 
@@ -82,58 +144,37 @@ public class PlayerEntityMapperImpl implements PlayerEntityMapper {
     }
 
     protected List<Achievement> achievementEntitySetToAchievementList(Set<AchievementEntity> set) {
-        List<Achievement> target = cycleAvoidingMappingContext.getMappedInstance( set, List.class );
-        if ( target != null ) {
-            return target;
-        }
-
         if ( set == null ) {
             return null;
         }
 
         List<Achievement> list = new ArrayList<Achievement>( set.size() );
-        cycleAvoidingMappingContext.storeMappedInstance( set, list );
-
         for ( AchievementEntity achievementEntity : set ) {
-            list.add( achievementEntityMapper.mapFromEntity( achievementEntity ) );
+            list.add( achievementEntityMapper.mapFromEntityWithoutPlayerAndTournament( achievementEntity ) );
         }
 
         return list;
     }
 
     protected List<Result> resultEntitySetToResultList(Set<ResultEntity> set) {
-        List<Result> target = cycleAvoidingMappingContext.getMappedInstance( set, List.class );
-        if ( target != null ) {
-            return target;
-        }
-
         if ( set == null ) {
             return null;
         }
 
         List<Result> list = new ArrayList<Result>( set.size() );
-        cycleAvoidingMappingContext.storeMappedInstance( set, list );
-
         for ( ResultEntity resultEntity : set ) {
-            list.add( resultEntityMapper.mapFromEntity( resultEntity ) );
+            list.add( resultEntityMapper.mapFromEntityWithoutPlayerAndTournament( resultEntity ) );
         }
 
         return list;
     }
 
     protected Set<AchievementEntity> achievementListToAchievementEntitySet(List<Achievement> list) {
-        Set<AchievementEntity> target = cycleAvoidingMappingContext.getMappedInstance( list, Set.class );
-        if ( target != null ) {
-            return target;
-        }
-
         if ( list == null ) {
             return null;
         }
 
         Set<AchievementEntity> set = new LinkedHashSet<AchievementEntity>( Math.max( (int) ( list.size() / .75f ) + 1, 16 ) );
-        cycleAvoidingMappingContext.storeMappedInstance( list, set );
-
         for ( Achievement achievement : list ) {
             set.add( achievementEntityMapper.mapToEntity( achievement ) );
         }
@@ -142,22 +183,41 @@ public class PlayerEntityMapperImpl implements PlayerEntityMapper {
     }
 
     protected Set<ResultEntity> resultListToResultEntitySet(List<Result> list) {
-        Set<ResultEntity> target = cycleAvoidingMappingContext.getMappedInstance( list, Set.class );
-        if ( target != null ) {
-            return target;
-        }
-
         if ( list == null ) {
             return null;
         }
 
         Set<ResultEntity> set = new LinkedHashSet<ResultEntity>( Math.max( (int) ( list.size() / .75f ) + 1, 16 ) );
-        cycleAvoidingMappingContext.storeMappedInstance( list, set );
-
         for ( Result result : list ) {
             set.add( resultEntityMapper.mapToEntity( result ) );
         }
 
         return set;
+    }
+
+    protected List<Achievement> achievementEntitySetToAchievementList1(Set<AchievementEntity> set) {
+        if ( set == null ) {
+            return null;
+        }
+
+        List<Achievement> list = new ArrayList<Achievement>( set.size() );
+        for ( AchievementEntity achievementEntity : set ) {
+            list.add( achievementEntityMapper.mapFromEntity( achievementEntity ) );
+        }
+
+        return list;
+    }
+
+    protected List<Result> resultEntitySetToResultList1(Set<ResultEntity> set) {
+        if ( set == null ) {
+            return null;
+        }
+
+        List<Result> list = new ArrayList<Result>( set.size() );
+        for ( ResultEntity resultEntity : set ) {
+            list.add( resultEntityMapper.mapFromEntity( resultEntity ) );
+        }
+
+        return list;
     }
 }

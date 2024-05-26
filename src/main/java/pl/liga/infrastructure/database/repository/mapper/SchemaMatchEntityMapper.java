@@ -10,7 +10,4 @@ import pl.liga.infrastructure.database.entity.SchemaMatchEntity;
 public interface SchemaMatchEntityMapper {
 
     SchemaMatch mapFromEntity(SchemaMatchEntity entity);
-
-    SchemaMatchEntity mapToEntity(SchemaMatch schemaMatch);
-
 }

@@ -8,7 +8,7 @@ import pl.liga.infrastructure.database.entity.SchemaMatchEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-24T20:35:06+0200",
+    date = "2024-05-26T09:41:34+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -36,26 +36,5 @@ public class SchemaMatchEntityMapperImpl implements SchemaMatchEntityMapper {
         schemaMatch.points( entity.getPoints() );
 
         return schemaMatch.build();
-    }
-
-    @Override
-    public SchemaMatchEntity mapToEntity(SchemaMatch schemaMatch) {
-        if ( schemaMatch == null ) {
-            return null;
-        }
-
-        SchemaMatchEntity.SchemaMatchEntityBuilder schemaMatchEntity = SchemaMatchEntity.builder();
-
-        cycleAvoidingMappingContext.storeMappedInstance( schemaMatch, schemaMatchEntity );
-
-        schemaMatchEntity.schemaMatchId( schemaMatch.getSchemaMatchId() );
-        schemaMatchEntity.playerANumber( schemaMatch.getPlayerANumber() );
-        schemaMatchEntity.playerBNumber( schemaMatch.getPlayerBNumber() );
-        schemaMatchEntity.markup( schemaMatch.getMarkup() );
-        schemaMatchEntity.winnerDestinationMarkup( schemaMatch.getWinnerDestinationMarkup() );
-        schemaMatchEntity.loserDestinationMarkup( schemaMatch.getLoserDestinationMarkup() );
-        schemaMatchEntity.points( schemaMatch.getPoints() );
-
-        return schemaMatchEntity.build();
     }
 }

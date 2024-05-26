@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.liga.business.dao.ResultDAO;
 import pl.liga.domain.Result;
-import pl.liga.infrastructure.database.entity.ResultEntity;
 import pl.liga.infrastructure.database.repository.jpa.ResultJpaRepository;
 import pl.liga.infrastructure.database.repository.mapper.ResultEntityMapper;
-
-import java.util.List;
 
 @Repository
 @AllArgsConstructor

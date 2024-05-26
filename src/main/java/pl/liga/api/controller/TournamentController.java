@@ -72,4 +72,14 @@ public class TournamentController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping(TOURNAMENT_DETAILS)
+    public ResponseEntity<?> cancelActiveTournament(
+            @RequestParam("tournamentId") Integer tournamentId
+    ){
+        tournamentService.cancelActiveTournament(tournamentId);
+
+
+        return ResponseEntity.ok().build();
+    }
 }

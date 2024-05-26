@@ -3,17 +3,13 @@ package pl.liga.infrastructure.database.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.liga.business.dao.TournamentDAO;
-import pl.liga.domain.Match;
 import pl.liga.domain.Tournament;
-import pl.liga.infrastructure.database.entity.MatchEntity;
 import pl.liga.infrastructure.database.entity.TournamentEntity;
 import pl.liga.infrastructure.database.repository.jpa.TournamentJpaRepository;
-import pl.liga.infrastructure.database.repository.mapper.MatchEntityMapper;
 import pl.liga.infrastructure.database.repository.mapper.TournamentEntityMapper;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 @AllArgsConstructor
@@ -83,5 +79,10 @@ public class TournamentRepository implements TournamentDAO {
     @Override
     public void deleteTournament(Integer tournamentId) {
         tournamentJpaRepository.deleteById(tournamentId);
+    }
+
+    @Override
+    public void cancelActiveTournament(Integer tournamentId) {
+        tournamentJpaRepository.cancelActiveTournament(tournamentId);
     }
 }

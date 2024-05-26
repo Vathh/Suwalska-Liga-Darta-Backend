@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -33,8 +34,8 @@ public class SeasonEntity {
     @Column(name = "to_delete")
     private Boolean toDelete;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "season")
-    private Set<TournamentEntity> tournaments;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "season")
+    private List<TournamentEntity> tournaments;
 
     @Column(name = "rank_count")
     private Integer rankCount;

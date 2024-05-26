@@ -14,8 +14,8 @@ public class TournamentWithoutResultsDTO {
 
     private Integer tournamentId;
     private Date date;
+    private Integer size;
     private Boolean active;
     private Boolean closed;
     private String seasonName;
-    private Integer size;
 }

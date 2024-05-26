@@ -23,10 +23,10 @@ public class PlayerEntity {
     @Column(name = "player_name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "player")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "player")
     private Set<AchievementEntity> achievements;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "player")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "player")
     private Set<ResultEntity> results;
 
     public PlayerEntity(Integer playerId, String name){

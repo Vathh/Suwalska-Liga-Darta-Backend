@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.liga.business.dao.SeasonDAO;
 import pl.liga.domain.Season;
-import pl.liga.domain.Tournament;
 
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -19,7 +17,7 @@ public class SeasonService {
     private final SeasonDAO seasonDAO;
 
     @Transactional
-    public List<Season> findAllSeasons(){
+    public List<Season> findAll(){
         return seasonDAO.findAll();
     }
 
@@ -34,7 +32,7 @@ public class SeasonService {
     }
 
     @Transactional
-    public Season findSeasonBySeasonId(Integer seasonId){
+    public Season findBySeasonId(Integer seasonId){
         return seasonDAO.findBySeasonId(seasonId);
     }
 

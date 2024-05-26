@@ -32,4 +32,12 @@ public interface TournamentJpaRepository extends JpaRepository<TournamentEntity,
             WHERE tm.tournamentId = :tournamentId
             """)
     void endTournament(final @Param("tournamentId") Integer tournamentId);
+
+    @Modifying
+    @Query("""
+            UPDATE TournamentEntity tm
+            SET tm.active = false
+            WHERE tm.tournamentId = :tournamentId
+            """)
+    void cancelActiveTournament(Integer tournamentId);
 }

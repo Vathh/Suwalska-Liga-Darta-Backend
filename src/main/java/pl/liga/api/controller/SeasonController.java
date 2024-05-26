@@ -28,7 +28,7 @@ public class SeasonController {
     @GetMapping
     public List<SeasonDTO> getSeasons(){
         return seasonService
-                .findAllSeasons()
+                .findAll()
                 .stream()
                 .map(seasonMapper::map)
                 .toList();
@@ -38,7 +38,7 @@ public class SeasonController {
     public SeasonResultsDTO getSeasonResults(
             @RequestParam("seasonId") Integer seasonId
     ){
-        Season season = seasonService.findSeasonBySeasonId(seasonId);
+        Season season = seasonService.findBySeasonId(seasonId);
 
         return seasonResultsMapper.map(season);
     }

@@ -59,10 +59,8 @@ public class MatchService {
     public void updateMatch(UpdateMatchDTO dto){
         matchDAO.updateMatch(dto.getMatchId(), dto.getWinnerId(), dto.getLoserId());
 
-        if(dto.getWinnerDestinationMarkup().equals(dto.getLoserDestinationMarkup())){
-            Match destinationMatch = matchDAO.findMatch(dto.getWinnerDestinationMarkup(), dto.getTournamentId());
-            matchDAO.setPlayerA(destinationMatch.getMatchId(), dto.getWinnerId());
-            matchDAO.setPlayerB(destinationMatch.getMatchId(), dto.getLoserId());
+        if(dto.getWinnerDestinationMarkup().startsWith("FINAL")){
+            handleFinal(dto);
             return;
         }
 
@@ -73,31 +71,27 @@ public class MatchService {
     }
 
     private void handleWinnerDestination(UpdateMatchDTO dto){
-        if(dto.getWinnerDestinationMarkup() == null || dto.getWinnerDestinationMarkup().isEmpty() || Objects.equals(dto.getWinnerDestinationMarkup(), "")){
-            resultService.addResult(dto.getWinnerId(), dto.getTournamentId(), 30);
-            tournamentService.endTournament(dto.getTournamentId());
-        }else{
-            Match winnerDestinationMatch = matchDAO.findMatch(dto.getWinnerDestinationMarkup(), dto.getTournamentId());
-            if(winnerDestinationMatch.getPlayerA() == null){
-                matchDAO.setPlayerA(winnerDestinationMatch.getMatchId(), dto.getWinnerId());
-            }else{
-                matchDAO.setPlayerB(winnerDestinationMatch.getMatchId(), dto.getWinnerId());
-            }
 
-            if((winnerDestinationMatch.getPlayerA() != null && winnerDestinationMatch.getPlayerA().getName().equals("EMPTY")) ||
-                    (winnerDestinationMatch.getPlayerB() != null && winnerDestinationMatch.getPlayerB().getName().equals("EMPTY"))){
-                UpdateMatchDTO handleEmptyMatchDto = UpdateMatchDTO.builder()
-                        .tournamentId(dto.getTournamentId())
-                        .matchId(winnerDestinationMatch.getMatchId())
-                        .winnerId(dto.getWinnerId())
-                        .loserId(1)
-                        .markup(winnerDestinationMatch.getMarkup())
-                        .winnerDestinationMarkup(winnerDestinationMatch.getWinnerDestinationMarkup())
-                        .loserDestinationMarkup(winnerDestinationMatch.getLoserDestinationMarkup())
-                        .points(winnerDestinationMatch.getPoints())
-                        .build();
-                updateMatch(handleEmptyMatchDto);
-            }
+        Match winnerDestinationMatch = matchDAO.findMatch(dto.getWinnerDestinationMarkup(), dto.getTournamentId());
+        if(winnerDestinationMatch.getPlayerA() == null){
+            matchDAO.setPlayerA(winnerDestinationMatch.getMatchId(), dto.getWinnerId());
+        }else{
+            matchDAO.setPlayerB(winnerDestinationMatch.getMatchId(), dto.getWinnerId());
+        }
+
+        if((winnerDestinationMatch.getPlayerA() != null && winnerDestinationMatch.getPlayerA().getName().equals("EMPTY")) ||
+                (winnerDestinationMatch.getPlayerB() != null && winnerDestinationMatch.getPlayerB().getName().equals("EMPTY"))){
+            UpdateMatchDTO handleEmptyMatchDto = UpdateMatchDTO.builder()
+                    .tournamentId(dto.getTournamentId())
+                    .matchId(winnerDestinationMatch.getMatchId())
+                    .winnerId(dto.getWinnerId())
+                    .loserId(1)
+                    .markup(winnerDestinationMatch.getMarkup())
+                    .winnerDestinationMarkup(winnerDestinationMatch.getWinnerDestinationMarkup())
+                    .loserDestinationMarkup(winnerDestinationMatch.getLoserDestinationMarkup())
+                    .points(winnerDestinationMatch.getPoints())
+                    .build();
+            updateMatch(handleEmptyMatchDto);
         }
     }
 
@@ -143,5 +137,13 @@ public class MatchService {
                 updateMatch(handleEmptyMatchDto);
             }
         }
+    }
+
+    private void handleFinal(UpdateMatchDTO dto){
+        if(!dto.getLoserId().equals(1)){
+            resultService.addResult(dto.getLoserId(), dto.getTournamentId(), dto.getPoints());
+        }
+        resultService.addResult(dto.getWinnerId(), dto.getTournamentId(), Integer.parseInt(dto.getWinnerDestinationMarkup().substring(5)));
+        tournamentService.endTournament(dto.getTournamentId());
     }
 }

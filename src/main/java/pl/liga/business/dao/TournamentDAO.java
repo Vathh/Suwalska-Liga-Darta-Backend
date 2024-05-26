@@ -25,4 +25,6 @@ public interface TournamentDAO {
     Tournament findTournamentWithResults(Integer tournamentId);
 
     void deleteTournament(Integer tournamentId);
+
+    void cancelActiveTournament(Integer tournamentId);
 }

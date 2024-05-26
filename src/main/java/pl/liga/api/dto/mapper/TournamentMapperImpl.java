@@ -34,6 +34,7 @@ public class TournamentMapperImpl {
         return TournamentWithResultsAndAchievementsDTO.builder()
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
+                .size(tournament.getSize())
                 .active(tournament.getActive())
                 .closed(tournament.getClosed())
                 .results(tournament.getResults()
@@ -44,7 +45,6 @@ public class TournamentMapperImpl {
                         .stream()
                         .map(achievementMapper::map)
                         .toList())
-                .size(tournament.getSize())
                 .build();
     }
 
@@ -52,10 +52,10 @@ public class TournamentMapperImpl {
         return TournamentWithoutResultsDTO.builder()
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
+                .size(tournament.getSize())
                 .active(tournament.getActive())
                 .closed(tournament.getClosed())
                 .seasonName(tournament.getSeason().getName())
-                .size(tournament.getSize())
                 .build();
     }
 
@@ -64,18 +64,18 @@ public class TournamentMapperImpl {
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
                 .matches(tournament.getMatches().stream().map(matchMapperImpl::map).toList())
-                .closed(tournament.getClosed())
-                .active(tournament.getActive())
                 .size(tournament.getSize())
+                .active(tournament.getActive())
+                .closed(tournament.getClosed())
                 .build();
     }
 
     public Tournament mapWithResults(TournamentWithResultsDTO tournamentWithResultsDTO){
         return Tournament.builder()
                 .date(tournamentWithResultsDTO.getDate())
-                .closed(tournamentWithResultsDTO.getClosed())
-                .active(tournamentWithResultsDTO.getActive())
                 .size(tournamentWithResultsDTO.getSize())
+                .active(tournamentWithResultsDTO.getActive())
+                .closed(tournamentWithResultsDTO.getClosed())
                 .build();
     }
 }
