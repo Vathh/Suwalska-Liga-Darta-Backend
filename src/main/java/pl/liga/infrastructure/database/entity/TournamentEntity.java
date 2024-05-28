@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,13 +26,13 @@ public class TournamentEntity {
     private Date date;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
-    private Set<ResultEntity> results;
+    private List<ResultEntity> results;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
-    private Set<AchievementEntity> achievements;
+    private List<AchievementEntity> achievements;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private Set<MatchEntity> matches;
+    private List<MatchEntity> matches;
 
     @Column(name = "tournament_size")
     private Integer size;

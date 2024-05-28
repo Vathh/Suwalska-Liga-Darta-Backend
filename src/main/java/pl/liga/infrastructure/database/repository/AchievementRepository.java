@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.liga.business.dao.AchievementDAO;
 import pl.liga.domain.Achievement;
 import pl.liga.infrastructure.database.repository.jpa.AchievementJpaRepository;
-import pl.liga.infrastructure.database.repository.mapper.AchievementEntityMapper;
+import pl.liga.infrastructure.database.repository.mapper.AchievementEntityMapperImpl;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class AchievementRepository implements AchievementDAO {
 
     private final AchievementJpaRepository achievementJpaRepository;
-    private final AchievementEntityMapper achievementEntityMapper;
+    private final AchievementEntityMapperImpl achievementEntityMapperImpl;
 
     @Override
     public List<Achievement> findAll() {
@@ -23,6 +23,6 @@ public class AchievementRepository implements AchievementDAO {
 
     @Override
     public void addAchievements(List<Achievement> achievements) {
-        achievementJpaRepository.saveAllAndFlush(achievements.stream().map(achievementEntityMapper::mapToEntityWithoutResultsAndAchievements).toList());
+        achievementJpaRepository.saveAllAndFlush(achievements.stream().map(achievementEntityMapperImpl::mapToEntityWithoutResultsAndAchievements).toList());
     }
 }

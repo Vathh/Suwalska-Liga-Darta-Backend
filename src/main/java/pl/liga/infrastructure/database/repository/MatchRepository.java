@@ -6,7 +6,7 @@ import pl.liga.business.dao.MatchDAO;
 import pl.liga.domain.Match;
 import pl.liga.infrastructure.database.entity.MatchEntity;
 import pl.liga.infrastructure.database.repository.jpa.MatchJpaRepository;
-import pl.liga.infrastructure.database.repository.mapper.MatchEntityMapper;
+import pl.liga.infrastructure.database.repository.mapper.MatchEntityMapperImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,13 +17,13 @@ public class MatchRepository implements MatchDAO {
 
     private final MatchJpaRepository matchJpaRepository;
 
-    private final MatchEntityMapper matchEntityMapper;
+    private final MatchEntityMapperImpl matchEntityMapperImpl;
 
     @Override
     public List<Match> findAll() {
         return matchJpaRepository.findAll()
                 .stream()
-                .map(matchEntityMapper::mapFromEntity)
+                .map(matchEntityMapperImpl::mapFromEntity)
                 .toList();
     }
 
@@ -31,32 +31,32 @@ public class MatchRepository implements MatchDAO {
     public void saveMatches(List<Match> matches) {
         matchJpaRepository.saveAllAndFlush(
                 matches.stream()
-                        .map(matchEntityMapper::mapToEntity)
+                        .map(matchEntityMapperImpl::mapToEntity)
                         .toList());
     }
 
     @Override
     public void saveMatch(Match match) {
-        matchJpaRepository.saveAndFlush(matchEntityMapper.mapToEntity(match));
+        matchJpaRepository.saveAndFlush(matchEntityMapperImpl.mapToEntity(match));
     }
 
     @Override
     public Match findMatch(String markup, Integer tournamentId) {
         Optional<MatchEntity> matchEntity = matchJpaRepository.findMatch(markup, tournamentId);
-        return matchEntity.map(matchEntityMapper::mapFromEntity).orElse(null);
+        return matchEntity.map(matchEntityMapperImpl::mapFromEntity).orElse(null);
     }
 
     @Override
     public Match findById(Integer matchId) {
         Optional<MatchEntity> matchEntity = matchJpaRepository.findById(matchId);
-        return matchEntity.map(matchEntityMapper::mapFromEntity).orElse(null);
+        return matchEntity.map(matchEntityMapperImpl::mapFromEntity).orElse(null);
     }
 
     @Override
     public List<Match> findMatchesByTournamentId(Integer tournamentId) {
         return matchJpaRepository.findMatchesByTournamentId(tournamentId)
                                 .stream()
-                                .map(matchEntityMapper::mapFromEntityWithoutResultsAndAchievementsWithTournamentId)
+                                .map(matchEntityMapperImpl::mapFromEntityWithoutResultsAndAchievementsWithTournamentId)
                                 .toList();
     }
 
@@ -79,7 +79,7 @@ public class MatchRepository implements MatchDAO {
     public List<Match> findActiveMatches() {
         return matchJpaRepository.findActiveMatches()
                                 .stream()
-                                .map(matchEntityMapper::mapFromEntityWithoutResultsAndAchievementsWithTournamentId)
+                                .map(matchEntityMapperImpl::mapFromEntityWithoutResultsAndAchievementsWithTournamentId)
                                 .toList();
     }
 

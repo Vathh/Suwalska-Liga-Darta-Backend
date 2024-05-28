@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.liga.business.dao.ResultDAO;
 import pl.liga.domain.Result;
 import pl.liga.infrastructure.database.repository.jpa.ResultJpaRepository;
-import pl.liga.infrastructure.database.repository.mapper.ResultEntityMapper;
+import pl.liga.infrastructure.database.repository.mapper.ResultEntityMapperImpl;
 
 @Repository
 @AllArgsConstructor
@@ -13,10 +13,10 @@ public class ResultRepository implements ResultDAO {
 
     private final ResultJpaRepository resultJpaRepository;
 
-    private final ResultEntityMapper resultEntityMapper;
+    private final ResultEntityMapperImpl resultEntityMapperImpl;
 
     @Override
     public void addResult(Result result) {
-        resultJpaRepository.saveAndFlush(resultEntityMapper.mapToEntity(result));
+        resultJpaRepository.saveAndFlush(resultEntityMapperImpl.mapToEntity(result));
     }
 }

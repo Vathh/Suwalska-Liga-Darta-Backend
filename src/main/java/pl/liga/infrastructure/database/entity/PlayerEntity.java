@@ -3,6 +3,7 @@ package pl.liga.infrastructure.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -24,10 +25,10 @@ public class PlayerEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "player")
-    private Set<AchievementEntity> achievements;
+    private List<AchievementEntity> achievements;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "player")
-    private Set<ResultEntity> results;
+    private List<ResultEntity> results;
 
     public PlayerEntity(Integer playerId, String name){
         this.playerId = playerId;
