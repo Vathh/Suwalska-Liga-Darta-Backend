@@ -9,8 +9,8 @@ import pl.liga.infrastructure.database.entity.SeasonEntity;
 import pl.liga.infrastructure.database.entity.TournamentEntity;
 import pl.liga.infrastructure.database.repository.jpa.SeasonJpaRepository;
 import pl.liga.infrastructure.database.repository.jpa.TournamentJpaRepository;
-import pl.liga.infrastructure.database.repository.mapper.SeasonEntityMapperImpl;
-import pl.liga.infrastructure.database.repository.mapper.TournamentEntityMapperImpl;
+import pl.liga.infrastructure.database.repository.mapper.SeasonEntityMapper;
+import pl.liga.infrastructure.database.repository.mapper.TournamentEntityMapper;
 
 import java.util.List;
 
@@ -20,14 +20,14 @@ public class SeasonRepository implements SeasonDAO {
 
     private final SeasonJpaRepository seasonJpaRepository;
     private final TournamentJpaRepository tournamentJpaRepository;
-    private final TournamentEntityMapperImpl tournamentEntityMapperImpl;
-    private final SeasonEntityMapperImpl seasonEntityMapperImpl;
+    private final TournamentEntityMapper tournamentEntityMapper;
+    private final SeasonEntityMapper seasonEntityMapper;
 
     @Override
     public List<Season> findAll() {
         return seasonJpaRepository.findAll()
                 .stream()
-                .map(seasonEntityMapperImpl::mapFromEntityWithoutMatchesAndSeason)
+                .map(seasonEntityMapper::mapFromEntity)
                 .filter(season -> season.getToDelete().equals(false))
                 .toList();
     }
@@ -35,13 +35,13 @@ public class SeasonRepository implements SeasonDAO {
     @Override
     public void addSeason(Season season) {
         seasonJpaRepository.saveAndFlush(
-                seasonEntityMapperImpl.mapToEntityWithoutResultsAchievementsAndMatches(season)
+                seasonEntityMapper.mapToEntity(season)
         );
 
         SeasonEntity seasonEntity = seasonJpaRepository.findByName(season.getName());
         List<Tournament> tournaments = season.getTournaments();
         List<TournamentEntity> tournamentEntities = tournaments.stream()
-                                                        .map(tournamentEntityMapperImpl::mapToEntityWithoutResultsAchievementsAndMatches)
+                                                        .map(tournamentEntityMapper::mapToEntity)
                                                         .toList();
         tournamentEntities.forEach(tournamentEntity -> tournamentEntity.setSeason(seasonEntity));
         tournamentJpaRepository.saveAllAndFlush(tournamentEntities);
@@ -49,12 +49,12 @@ public class SeasonRepository implements SeasonDAO {
 
     @Override
     public Season findByName(String name) {
-        return seasonEntityMapperImpl.mapFromEntityWithoutMatchesAndSeason(seasonJpaRepository.findByName(name));
+        return seasonEntityMapper.mapFromEntity(seasonJpaRepository.findByName(name));
     }
 
     @Override
     public Season findBySeasonId(Integer seasonId) {
-        return seasonEntityMapperImpl.mapFromEntityWithoutMatchesAndSeason(seasonJpaRepository.findBySeasonId(seasonId));
+        return seasonEntityMapper.mapFromEntity(seasonJpaRepository.findBySeasonId(seasonId));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SeasonRepository implements SeasonDAO {
     public List<Season> findAllWithTournaments() {
         return seasonJpaRepository.findAllWithTournaments()
                 .stream()
-                .map(seasonEntityMapperImpl::mapFromEntityWithoutMatchesAndSeason)
+                .map(seasonEntityMapper::mapFromEntity)
                 .filter(season -> season.getToDelete().equals(false))
                 .toList();
     }

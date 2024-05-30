@@ -7,7 +7,7 @@ import pl.liga.business.dao.PlayerDAO;
 import pl.liga.domain.Player;
 import pl.liga.infrastructure.database.entity.PlayerEntity;
 import pl.liga.infrastructure.database.repository.jpa.PlayerJpaRepository;
-import pl.liga.infrastructure.database.repository.mapper.PlayerEntityMapperImpl;
+import pl.liga.infrastructure.database.repository.mapper.PlayerEntityMapper;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ public class PlayerRepository implements PlayerDAO {
     private EntityManager entityManager;
     private final PlayerJpaRepository playerJpaRepository;
 
-    private final PlayerEntityMapperImpl playerEntityMapperImpl;
+    private final PlayerEntityMapper playerEntityMapper;
 
     @Override
     public List<Player> findAll() {
         return playerJpaRepository.findAll()
                 .stream()
-                .map(playerEntityMapperImpl::mapFromEntityWithoutPlayerAndTournament)
+                .map(playerEntityMapper::mapFromEntity)
                 .toList();
     }
 
     @Override
     public void savePlayer(Player player) {
-        PlayerEntity entity = playerEntityMapperImpl.mapToEntityWithoutResultsAndAchievements(player);
+        PlayerEntity entity = playerEntityMapper.mapToEntity(player);
         playerJpaRepository.saveAndFlush(entity);
     }
 
@@ -39,7 +39,7 @@ public class PlayerRepository implements PlayerDAO {
 
         return playerJpaRepository.findPlayersByIdsWithoutResultsAndAchievements(playersIds)
                 .stream()
-                .map(playerEntityMapperImpl::mapFromEntityWithoutPlayerAndTournament)
+                .map(playerEntityMapper::mapFromEntity)
                 .toList();
     }
 
@@ -47,7 +47,7 @@ public class PlayerRepository implements PlayerDAO {
     public List<Player> findAllWithAchievementsAndResults() {
         return playerJpaRepository.findAllWithAchievementsAndResults()
                 .stream()
-                .map(playerEntityMapperImpl::mapFromEntityWithoutPlayerAndTournament)
+                .map(playerEntityMapper::mapFromEntity)
                 .toList();
     }
 }

@@ -22,6 +22,8 @@ public interface MatchJpaRepository extends JpaRepository<MatchEntity, Integer> 
 
     @Query("""
             SELECT mt FROM MatchEntity mt
+            LEFT JOIN FETCH mt.playerA
+            LEFT JOIN FETCH mt.playerB
             WHERE mt.tournament.tournamentId = :tournamentId
             """)
     Set<MatchEntity> findMatchesByTournamentId(final @Param("tournamentId") Integer tournamentId);
