@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -14,6 +13,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "league_player")
+//@NamedEntityGraph(name = "PlayerEntity.noAssociations", attributeNodes = {
+//        @NamedAttributeNode("playerId"),
+//        @NamedAttributeNode("name")
+//})
 public class PlayerEntity {
 
     @Id

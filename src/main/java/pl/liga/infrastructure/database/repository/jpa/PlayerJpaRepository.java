@@ -17,12 +17,15 @@ public interface PlayerJpaRepository extends JpaRepository<PlayerEntity, Integer
             SELECT new PlayerEntity(pl.playerId, pl.name) FROM PlayerEntity pl 
             WHERE pl.playerId IN :playersIds            
             """)
-    Set<PlayerEntity> findPlayersByIdsWithoutResultsAndAchievements(final @Param("playersIds")List<Integer> playersIds);
+    List<PlayerEntity> findPlayersByIdsWithoutResultsAndAchievements(final @Param("playersIds")List<Integer> playersIds);
 
     @Query("""
             SELECT pl FROM PlayerEntity pl
             LEFT JOIN FETCH pl.achievements
             LEFT JOIN FETCH pl.results
             """)
-    Set<PlayerEntity> findAllWithAchievementsAndResults();
+    List<PlayerEntity> findAllWithAchievementsAndResults();
+
+//    @EntityGraph(value = "PlayerEntity.noAssociations", type = EntityGraph.EntityGraphType.LOAD)
+//    List<PlayerEntity> findAll();
 }
