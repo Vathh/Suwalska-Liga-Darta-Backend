@@ -22,8 +22,8 @@ public class PlayerService {
     }
 
     @Transactional
-    public List<Player> findAll(){
-        return playerDAO.findAll();
+    public List<Player> findAllWithoutResults(){
+        return playerDAO.findAllWithoutResults();
     };
 
     @Transactional

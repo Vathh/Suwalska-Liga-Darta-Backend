@@ -26,7 +26,7 @@ public class TournamentController {
 
     @GetMapping
     public List<TournamentWithoutResultsDTO> getTournamentsWithoutResults(){
-        return tournamentService.findAll()
+        return tournamentService.findAllWithoutResultsAchievementsMatches()
                 .stream()
                 .map(tournamentMapper::mapWithoutResults)
                 .toList();
@@ -58,7 +58,7 @@ public class TournamentController {
     public TournamentWithResultsAndAchievementsDTO getTournamentResults(
             @RequestParam("tournamentId") Integer tournamentId
     ){
-        Tournament tournament = tournamentService.getTournamentByIdWithResults(tournamentId);
+        Tournament tournament = tournamentService.findByIdWithoutMatches(tournamentId);
 
         return tournamentMapper.mapWithResultsAndAchievements(tournament);
     }

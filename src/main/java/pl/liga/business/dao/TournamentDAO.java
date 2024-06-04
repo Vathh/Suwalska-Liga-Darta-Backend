@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface TournamentDAO {
 
-    List<Tournament> findAll();
+    List<Tournament> findAllWithoutResultsAchievementsMatches();
 
     void saveTournament(Tournament tournament);
 
     void saveTournaments(List<Tournament> tournaments);
 
-    Tournament findById(Integer tournamentId);
+    Tournament findByIdWithoutMatches(Integer tournamentId);
 
     Tournament getRandomTournament();
 

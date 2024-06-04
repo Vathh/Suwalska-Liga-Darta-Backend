@@ -16,36 +16,38 @@ public interface PlayerMapper {
 
     default PlayerDTO map(final Player player){
 
-        long max = player.getAchievements()
-                .stream()
-                .filter(x -> x.getType().equals(AchievementType.MAX))
-                .count();
-
-        long oneSeventy = player.getAchievements()
-                .stream()
-                .filter(x -> x.getType().equals(AchievementType.ONESEVENTY))
-                .count();
-
-        Optional<Achievement> hf = player.getAchievements()
-                .stream()
-                .filter(x -> x.getType().equals(AchievementType.HF))
-                .max(Comparator.comparingInt(Achievement::getValue));
-
-        Optional<Achievement> qf = player.getAchievements()
-                .stream()
-                .filter(x -> x.getType().equals(AchievementType.QF))
-                .min(Comparator.comparingInt(Achievement::getValue));
-
         PlayerDTO dto = PlayerDTO.builder()
                 .playerId(player.getPlayerId())
                 .name(player.getName())
-                .max((int) max)
-                .oneSeventy((int) oneSeventy)
                 .build();
 
-        hf.ifPresent(achievement -> dto.setHf(achievement.getValue()));
-        qf.ifPresent(achievement -> dto.setQf(achievement.getValue()));
+        if(player.getAchievements() != null){
+            Integer max = Math.toIntExact(player.getAchievements()
+                    .stream()
+                    .filter(x -> x.getType().equals(AchievementType.MAX))
+                    .count());
 
+            Integer oneSeventy = Math.toIntExact(player.getAchievements()
+                    .stream()
+                    .filter(x -> x.getType().equals(AchievementType.ONESEVENTY))
+                    .count());
+
+            Optional<Achievement> hf = player.getAchievements()
+                    .stream()
+                    .filter(x -> x.getType().equals(AchievementType.HF))
+                    .max(Comparator.comparingInt(Achievement::getValue));
+
+            Optional<Achievement> qf = player.getAchievements()
+                    .stream()
+                    .filter(x -> x.getType().equals(AchievementType.QF))
+                    .min(Comparator.comparingInt(Achievement::getValue));
+
+
+            hf.ifPresent(achievement -> dto.setHf(achievement.getValue()));
+            qf.ifPresent(achievement -> dto.setQf(achievement.getValue()));
+            dto.setMax(max);
+            dto.setOneSeventy(oneSeventy);
+        }
 
         return dto;
     };

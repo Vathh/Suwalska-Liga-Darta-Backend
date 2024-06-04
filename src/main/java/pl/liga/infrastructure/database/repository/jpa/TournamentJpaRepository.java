@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.liga.infrastructure.database.entity.TournamentEntity;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface TournamentJpaRepository extends JpaRepository<TournamentEntity, Integer> {
@@ -21,9 +21,29 @@ public interface TournamentJpaRepository extends JpaRepository<TournamentEntity,
 
     @Query("""
             SELECT tm FROM TournamentEntity tm
+            LEFT JOIN FETCH tm.matches
+            LEFT JOIN FETCH tm.matches.playerA
+            LEFT JOIN FETCH tm.matches.playerB
+            LEFT JOIN FETCH tm.season
             WHERE tm.active = true
             """)
     Optional<TournamentEntity> findActiveTournament();
+
+    @Query("""
+            SELECT tm FROM TournamentEntity tm
+            LEFT JOIN FETCH tm.season
+            """)
+    List<TournamentEntity> findAll();
+
+    @Query("""
+            SELECT tm FROM TournamentEntity tm
+            LEFT JOIN FETCH tm.results
+            LEFT JOIN FETCH tm.results.player
+            LEFT JOIN FETCH tm.achievements
+            LEFT JOIN FETCH tm.season
+            WHERE tm.tournamentId = :tournamentId           
+            """)
+    Optional<TournamentEntity> findByIdWithoutMatches(final @Param("tournamentId")Integer tournamentId);
 
     @Modifying
     @Query("""

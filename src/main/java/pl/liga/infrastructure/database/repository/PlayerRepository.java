@@ -15,16 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 public class PlayerRepository implements PlayerDAO {
 
-    private EntityManager entityManager;
     private final PlayerJpaRepository playerJpaRepository;
 
     private final PlayerEntityMapper playerEntityMapper;
 
     @Override
-    public List<Player> findAll() {
-        return playerJpaRepository.findAll()
+    public List<Player> findAllWithoutResults() {
+        return playerJpaRepository.findAllWithAchievements()
                 .stream()
-                .map(playerEntityMapper::mapFromEntity)
+                .map(playerEntityMapper::mapFromEntityWithoutResults)
                 .toList();
     }
 

@@ -26,6 +26,9 @@ public interface PlayerJpaRepository extends JpaRepository<PlayerEntity, Integer
             """)
     List<PlayerEntity> findAllWithAchievementsAndResults();
 
-//    @EntityGraph(value = "PlayerEntity.noAssociations", type = EntityGraph.EntityGraphType.LOAD)
-//    List<PlayerEntity> findAll();
+    @Query("""
+            SELECT pl FROM PlayerEntity pl
+            LEFT JOIN FETCH pl.achievements
+            """)
+    List<PlayerEntity> findAllWithAchievements();
 }

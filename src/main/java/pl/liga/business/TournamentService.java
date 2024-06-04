@@ -24,8 +24,8 @@ public class TournamentService {
     private final BracketService bracketService;
 
     @Transactional
-    public List<Tournament> findAll(){
-        return tournamentDAO.findAll();
+    public List<Tournament> findAllWithoutResultsAchievementsMatches(){
+        return tournamentDAO.findAllWithoutResultsAchievementsMatches();
     }
 
     @Transactional
@@ -65,7 +65,7 @@ public class TournamentService {
             size = 16;
         }
 
-        Tournament tournament = tournamentDAO.findById(dto.getTournamentId());
+        Tournament tournament = tournamentDAO.findByIdWithoutMatches(dto.getTournamentId());
 
         List<Match> matches = bracketService.getBracket(players, tournament);
 
@@ -85,8 +85,8 @@ public class TournamentService {
     }
 
     @Transactional
-    public Tournament getTournamentByIdWithResults(Integer tournamentId){
-        return tournamentDAO.findById(tournamentId);
+    public Tournament findByIdWithoutMatches(Integer tournamentId){
+        return tournamentDAO.findByIdWithoutMatches(tournamentId);
     }
 
     @Transactional

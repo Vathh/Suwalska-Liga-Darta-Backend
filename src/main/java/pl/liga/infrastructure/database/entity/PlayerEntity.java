@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,10 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "league_player")
-//@NamedEntityGraph(name = "PlayerEntity.noAssociations", attributeNodes = {
-//        @NamedAttributeNode("playerId"),
-//        @NamedAttributeNode("name")
-//})
 public class PlayerEntity {
 
     @Id
@@ -28,10 +25,10 @@ public class PlayerEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "player")
-    private List<AchievementEntity> achievements;
+    private Set<AchievementEntity> achievements;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "player")
-    private List<ResultEntity> results;
+    private Set<ResultEntity> results;
 
     public PlayerEntity(Integer playerId, String name){
         this.playerId = playerId;

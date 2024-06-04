@@ -29,9 +29,19 @@ public interface SeasonJpaRepository extends JpaRepository<SeasonEntity, Integer
 
     @Query("""
             SELECT sn FROM SeasonEntity sn
-            JOIN FETCH sn.tournaments
+            LEFT JOIN FETCH sn.tournaments
             """)
     List<SeasonEntity> findAllWithTournaments();
+
+    @Query("""
+            SELECT sn FROM SeasonEntity sn
+            LEFT JOIN FETCH sn.tournaments            
+            LEFT JOIN FETCH sn.tournaments.results
+            LEFT JOIN FETCH sn.tournaments.achievements
+            LEFT JOIN FETCH sn.tournaments.results.player
+            WHERE sn.toDelete = false
+            """)
+    List<SeasonEntity> findAll();
 
     @Modifying
     @Query("""

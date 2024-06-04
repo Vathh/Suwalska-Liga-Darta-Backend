@@ -26,13 +26,13 @@ public class TournamentEntity {
     private Date date;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
-    private List<ResultEntity> results;
+    private Set<ResultEntity> results;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
-    private List<AchievementEntity> achievements;
+    private Set<AchievementEntity> achievements;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<MatchEntity> matches;
+    private Set<MatchEntity> matches;
 
     @Column(name = "tournament_size")
     private Integer size;

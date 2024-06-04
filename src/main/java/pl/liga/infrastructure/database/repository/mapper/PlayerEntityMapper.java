@@ -22,16 +22,25 @@ public interface PlayerEntityMapper {
 
     Player mapFromEntity(PlayerEntity entity);
 
+    @Mapping(target = "results", ignore = true)
+    Player mapFromEntityWithoutResults(PlayerEntity entity);
+
     @Mappings({
             @Mapping(target = "achievements", ignore = true),
             @Mapping(target = "results", ignore = true)
     })
     Player mapFromEntityWithoutAchievementsAndResults(PlayerEntity entity);
 
-    @Mapping(target = "player", ignore = true)
+    @Mappings({
+        @Mapping(target = "player", ignore = true),
+        @Mapping(target = "tournament", ignore = true)
+    })
     Achievement achievementEntityToAchievement(AchievementEntity entity);
 
-    @Mapping(target = "player", ignore = true)
+    @Mappings({
+            @Mapping(target = "player", ignore = true),
+            @Mapping(target = "tournament", ignore = true)
+    })
     Result resultEntityToResult(ResultEntity entity);
 
     @Mappings({

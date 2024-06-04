@@ -5,7 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"achievementId", "player", "tournament"})
+@EqualsAndHashCode(of = {"achievementId", "type", "value", "player"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

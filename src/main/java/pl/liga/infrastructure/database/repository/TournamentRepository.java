@@ -20,9 +20,9 @@ public class TournamentRepository implements TournamentDAO {
     private final TournamentEntityMapper tournamentEntityMapper;
 
     @Override
-    public List<Tournament> findAll() {
+    public List<Tournament> findAllWithoutResultsAchievementsMatches() {
         return tournamentJpaRepository.findAll().stream()
-                .map(tournamentEntityMapper::mapFromEntity)
+                .map(tournamentEntityMapper::mapFromEntityWithoutResultsAchievementsMatches)
                 .toList();
     }
 
@@ -43,9 +43,9 @@ public class TournamentRepository implements TournamentDAO {
     }
 
     @Override
-    public Tournament findById(Integer tournamentId) {
-        Optional<TournamentEntity> tournamentEntity = tournamentJpaRepository.findById(tournamentId);
-        return tournamentEntity.map(tournamentEntityMapper::mapFromEntity).orElse(null);
+    public Tournament findByIdWithoutMatches(Integer tournamentId) {
+        Optional<TournamentEntity> tournamentEntity = tournamentJpaRepository.findByIdWithoutMatches(tournamentId);
+        return tournamentEntity.map(tournamentEntityMapper::mapFromEntityWithoutMatches).orElse(null);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class TournamentRepository implements TournamentDAO {
     @Override
     public Tournament findActiveTournament() {
         Optional<TournamentEntity> tournament = tournamentJpaRepository.findActiveTournament();
-        return tournament.map(tournamentEntityMapper::mapFromEntity).orElse(null);
+        return tournament.map(tournamentEntityMapper::mapFromEntityWithoutResultsAchievements).orElse(null);
     }
 
     @Override

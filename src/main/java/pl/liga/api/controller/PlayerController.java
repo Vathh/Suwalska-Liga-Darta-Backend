@@ -23,7 +23,7 @@ public class PlayerController {
 
     @GetMapping
     public List<PlayerDTO> getPlayers(){
-        return playerService.findAll()
+        return playerService.findAllWithoutResults()
                 .stream()
                 .map(playerMapper::map)
                 .toList();

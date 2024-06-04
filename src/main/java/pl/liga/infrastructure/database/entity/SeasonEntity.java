@@ -35,7 +35,7 @@ public class SeasonEntity {
     private Boolean toDelete;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "season")
-    private List<TournamentEntity> tournaments;
+    private Set<TournamentEntity> tournaments;
 
     @Column(name = "rank_count")
     private Integer rankCount;
