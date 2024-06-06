@@ -16,7 +16,6 @@ import java.util.List;
 public class PlayerController {
 
     public static final String PLAYER = "/player";
-    public static final String PLAYER_DETAILS = "/details";
 
     private final PlayerService playerService;
     private final PlayerMapper playerMapper;

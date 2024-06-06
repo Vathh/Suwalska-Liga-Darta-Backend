@@ -41,12 +41,4 @@ public class PlayerRepository implements PlayerDAO {
                 .map(playerEntityMapper::mapFromEntity)
                 .toList();
     }
-
-    @Override
-    public List<Player> findAllWithAchievementsAndResults() {
-        return playerJpaRepository.findAllWithAchievementsAndResults()
-                .stream()
-                .map(playerEntityMapper::mapFromEntity)
-                .toList();
-    }
 }

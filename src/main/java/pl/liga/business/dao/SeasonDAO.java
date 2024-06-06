@@ -10,9 +10,6 @@ public interface SeasonDAO {
     List<Season> findAll();
     void addSeason(Season season);
 
-    Season findByName(String name);
-
     Season findBySeasonId(Integer seasonId);
     void deleteSeason(Integer seasonId);
-    List<Season> findAllWithTournaments();
 }

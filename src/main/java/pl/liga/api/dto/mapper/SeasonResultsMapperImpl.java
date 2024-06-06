@@ -41,21 +41,24 @@ public class SeasonResultsMapperImpl {
                         .mapToInt(Integer::intValue)
                         .sum();
             int sum = results.stream()
-                    .map(Result::getPointsEarned)
-                    .mapToInt(Integer::intValue)
-                    .sum();
+                        .map(Result::getPointsEarned)
+                        .mapToInt(Integer::intValue)
+                        .sum();
+
             PlayerSummaryDTO dto = PlayerSummaryDTO.builder()
-                    .name(player.getName())
-                    .rank(rank)
-                    .total(sum)
-                    .frequency(results.size())
-                    .build();
+                                    .name(player.getName())
+                                    .rank(rank)
+                                    .total(sum)
+                                    .frequency(results.size())
+                                    .build();
+
             playerSummaries.add(dto);
         });
 
         achievementsMap.forEach((player, achievements) -> {
             if(achievements.size() > 0){
                 Map<String, List<Achievement>> achievementsSorted = achievements.stream().collect(Collectors.groupingBy(Achievement::getType));
+
                 PlayerSummaryDTO playerSummaryDTO = playerSummaries.stream().filter(dto -> dto.getName().equals(player.getName()))
                                                                             .findFirst()
                                                                             .orElse(null);

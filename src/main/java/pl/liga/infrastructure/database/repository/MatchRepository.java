@@ -28,27 +28,8 @@ public class MatchRepository implements MatchDAO {
     }
 
     @Override
-    public void saveMatches(List<Match> matches) {
-        matchJpaRepository.saveAllAndFlush(
-                matches.stream()
-                        .map(matchEntityMapper::mapToEntity)
-                        .toList());
-    }
-
-    @Override
-    public void saveMatch(Match match) {
-        matchJpaRepository.saveAndFlush(matchEntityMapper.mapToEntity(match));
-    }
-
-    @Override
     public Match findMatch(String markup, Integer tournamentId) {
         Optional<MatchEntity> matchEntity = matchJpaRepository.findMatch(markup, tournamentId);
-        return matchEntity.map(matchEntityMapper::mapFromEntity).orElse(null);
-    }
-
-    @Override
-    public Match findById(Integer matchId) {
-        Optional<MatchEntity> matchEntity = matchJpaRepository.findById(matchId);
         return matchEntity.map(matchEntityMapper::mapFromEntity).orElse(null);
     }
 

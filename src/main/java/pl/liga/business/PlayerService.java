@@ -30,9 +30,4 @@ public class PlayerService {
     public List<Player> findPlayersByIdsWithoutResultsAndAchievements(List<Integer> playersIds){
         return playerDAO.findPlayersByIdsWithoutResultsAndAchievements(playersIds);
     }
-
-    @Transactional
-    public List<Player> findAllWithAchievementsAndResults(){
-        return playerDAO.findAllWithAchievementsAndResults();
-    }
 }

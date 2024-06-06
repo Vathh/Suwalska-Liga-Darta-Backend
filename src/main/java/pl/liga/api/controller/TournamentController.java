@@ -31,20 +31,6 @@ public class TournamentController {
                 .map(tournamentMapper::mapWithoutResults)
                 .toList();
     }
-
-    @PatchMapping(TOURNAMENT_START)
-    public ResponseEntity<?> startTournament(
-            @Valid @RequestBody StartTournamentDTO dto
-            ){
-
-        if(tournamentService.findActiveTournament() != null){
-            return ResponseEntity.badRequest().body("Aktualnie inny turniej jest aktywny.");
-        }
-
-        tournamentService.startTournament(dto);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping(TOURNAMENT_ACTIVE)
     public TournamentDTO getActiveTournament(){
         Tournament tournament = tournamentService.findActiveTournament();
@@ -53,7 +39,6 @@ public class TournamentController {
         }
         return tournamentMapper.mapToDTO(tournament);
     }
-
     @GetMapping(TOURNAMENT_DETAILS)
     public TournamentWithResultsAndAchievementsDTO getTournamentResults(
             @RequestParam("tournamentId") Integer tournamentId
@@ -63,12 +48,15 @@ public class TournamentController {
         return tournamentMapper.mapWithResultsAndAchievements(tournament);
     }
 
-    @DeleteMapping(TOURNAMENT_DETAILS)
-    public ResponseEntity<?> deleteTournament(
-            @RequestParam("tournamentId") Integer tournamentId
+    @PatchMapping(TOURNAMENT_START)
+    public ResponseEntity<?> startTournament(
+            @Valid @RequestBody StartTournamentDTO dto
     ){
+        if(tournamentService.findActiveTournament() != null){
+            return ResponseEntity.badRequest().body("Aktualnie inny turniej jest aktywny.");
+        }
 
-        tournamentService.deleteTournament(tournamentId);
+        tournamentService.startTournament(dto);
 
         return ResponseEntity.ok().build();
     }
@@ -79,7 +67,16 @@ public class TournamentController {
     ){
         tournamentService.cancelActiveTournament(tournamentId);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(TOURNAMENT_DETAILS)
+    public ResponseEntity<?> deleteTournament(
+            @RequestParam("tournamentId") Integer tournamentId
+    ){
+        tournamentService.deleteTournament(tournamentId);
 
         return ResponseEntity.ok().build();
     }
+
 }

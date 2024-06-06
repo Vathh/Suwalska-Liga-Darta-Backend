@@ -27,11 +27,6 @@ public class SeasonService {
     }
 
     @Transactional
-    public Season findSeasonByName(String name){
-        return seasonDAO.findByName(name);
-    }
-
-    @Transactional
     public Season findBySeasonId(Integer seasonId){
         return seasonDAO.findBySeasonId(seasonId);
     }

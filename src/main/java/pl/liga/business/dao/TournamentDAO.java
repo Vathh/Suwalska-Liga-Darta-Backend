@@ -10,19 +10,11 @@ public interface TournamentDAO {
 
     void saveTournament(Tournament tournament);
 
-    void saveTournaments(List<Tournament> tournaments);
-
     Tournament findByIdWithoutMatches(Integer tournamentId);
-
-    Tournament getRandomTournament();
-
-    Tournament findByIdWithoutResultsAchievementsMatchesSeason(Integer tournamentId);
 
     Tournament findActiveTournament();
 
     void endTournament(Integer tournamentId);
-
-    Tournament findTournamentWithResults(Integer tournamentId);
 
     void deleteTournament(Integer tournamentId);
 

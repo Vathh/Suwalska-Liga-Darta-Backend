@@ -36,7 +36,6 @@ public class MatchController {
 
     @GetMapping(MATCH_ACTIVE)
     public List<MatchDTO> getActiveMatches(){
-
         List<Match> matches = matchService.findActiveMatches();
 
         return matches.stream().map(matchMapper::map).toList();
@@ -45,8 +44,9 @@ public class MatchController {
     @PatchMapping(MATCH_DETAILS)
     public ResponseEntity<?> updateMatch(
             @Valid @RequestBody MatchResultDTO dto
-            ){
+    ){
         matchService.addMatchResult(dto);
+
         return ResponseEntity.ok().build();
     }
 

@@ -48,11 +48,6 @@ public class SeasonRepository implements SeasonDAO {
     }
 
     @Override
-    public Season findByName(String name) {
-        return seasonEntityMapper.mapFromEntity(seasonJpaRepository.findByName(name));
-    }
-
-    @Override
     public Season findBySeasonId(Integer seasonId) {
         return seasonEntityMapper.mapFromEntity(seasonJpaRepository.findBySeasonId(seasonId));
     }
@@ -60,14 +55,5 @@ public class SeasonRepository implements SeasonDAO {
     @Override
     public void deleteSeason(Integer seasonId) {
         seasonJpaRepository.deleteBySeasonId(seasonId);
-    }
-
-    @Override
-    public List<Season> findAllWithTournaments() {
-        return seasonJpaRepository.findAllWithTournaments()
-                .stream()
-                .map(seasonEntityMapper::mapFromEntity)
-                .filter(season -> season.getToDelete().equals(false))
-                .toList();
     }
 }

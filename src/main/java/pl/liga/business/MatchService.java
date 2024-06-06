@@ -27,12 +27,6 @@ public class MatchService {
     private final AchievementService achievementService;
 
     @Transactional
-    public void addMatches(List<Player> players, Tournament tournament){
-        List<Match> matches = bracketService.getBracket(players, tournament);
-        matchDAO.saveMatches(matches);
-    }
-
-    @Transactional
     public List<Match> findMatchesByTournamentId(Integer tournamentId){
         return matchDAO.findMatchesByTournamentId(tournamentId);
     }
@@ -42,11 +36,6 @@ public class MatchService {
         List<Match> matches = matchDAO.findActiveMatches();
 
         return matches.stream().filter(match -> match.getPlayerA() != null && match.getPlayerB() != null).toList();
-    }
-
-    @Transactional
-    public List<Match> findAllMatches(){
-        return matchDAO.findAll();
     }
 
     @Transactional

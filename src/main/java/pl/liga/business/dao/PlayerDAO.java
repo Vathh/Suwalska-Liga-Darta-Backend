@@ -12,6 +12,4 @@ public interface PlayerDAO {
 
     List<Player> findPlayersByIdsWithoutResultsAndAchievements(List<Integer> playersIds);
 
-    List<Player> findAllWithAchievementsAndResults();
-
 }

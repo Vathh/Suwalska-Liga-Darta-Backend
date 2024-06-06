@@ -29,21 +29,6 @@ public class TournamentService {
     }
 
     @Transactional
-    public void addTournament(Tournament tournament){
-        tournamentDAO.saveTournament(tournament);
-    };
-
-    @Transactional
-    public void addTournaments(List<Tournament> tournaments){
-        tournamentDAO.saveTournaments(tournaments);
-    }
-
-    @Transactional
-    public Tournament getRandomTournament(){
-        return tournamentDAO.getRandomTournament();
-    }
-
-    @Transactional
     public void saveTournament(Tournament tournament){
         tournamentDAO.saveTournament(tournament);
     }

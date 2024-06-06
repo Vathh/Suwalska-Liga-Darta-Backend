@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlayerWithoutAchievementsDTO {
+public class PlayerWithoutAchievementsResultsDTO {
 
     private Integer playerId;
     private String name;

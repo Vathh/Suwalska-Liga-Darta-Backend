@@ -38,13 +38,13 @@ public class TournamentMapperImpl {
                 .active(tournament.getActive())
                 .closed(tournament.getClosed())
                 .results(tournament.getResults()
-                        .stream()
-                        .map(resultMapper::map)
-                        .toList())
+                                .stream()
+                                .map(resultMapper::map)
+                                .toList())
                 .achievements(tournament.getAchievements()
-                        .stream()
-                        .map(achievementMapper::map)
-                        .toList())
+                                .stream()
+                                .map(achievementMapper::map)
+                                .toList())
                 .build();
     }
 
@@ -63,19 +63,13 @@ public class TournamentMapperImpl {
         return TournamentDTO.builder()
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
-                .matches(tournament.getMatches().stream().map(matchMapperImpl::map).toList())
+                .matches(tournament.getMatches()
+                            .stream()
+                            .map(matchMapperImpl::map)
+                            .toList())
                 .size(tournament.getSize())
                 .active(tournament.getActive())
                 .closed(tournament.getClosed())
-                .build();
-    }
-
-    public Tournament mapWithResults(TournamentWithResultsDTO tournamentWithResultsDTO){
-        return Tournament.builder()
-                .date(tournamentWithResultsDTO.getDate())
-                .size(tournamentWithResultsDTO.getSize())
-                .active(tournamentWithResultsDTO.getActive())
-                .closed(tournamentWithResultsDTO.getClosed())
                 .build();
     }
 }

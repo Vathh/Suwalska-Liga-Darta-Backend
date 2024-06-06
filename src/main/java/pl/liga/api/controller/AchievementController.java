@@ -22,8 +22,7 @@ public class AchievementController {
     @PostMapping
     public ResponseEntity<?> addAchievements(
             @Valid @RequestBody MatchAchievementsDTO matchAchievementsDTO
-            ){
-
+    ){
         achievementService.addAchievements(matchAchievementsDTO);
 
         return ResponseEntity.ok().build();

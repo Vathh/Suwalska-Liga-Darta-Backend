@@ -35,28 +35,9 @@ public class TournamentRepository implements TournamentDAO {
     }
 
     @Override
-    public void saveTournaments(List<Tournament> tournaments) {
-        List<TournamentEntity> entities = tournaments.stream()
-                                                            .map(tournamentEntityMapper::mapToEntity)
-                                                            .toList();
-        tournamentJpaRepository.saveAllAndFlush(entities);
-    }
-
-    @Override
     public Tournament findByIdWithoutMatches(Integer tournamentId) {
         Optional<TournamentEntity> tournamentEntity = tournamentJpaRepository.findByIdWithoutMatches(tournamentId);
         return tournamentEntity.map(tournamentEntityMapper::mapFromEntityWithoutMatches).orElse(null);
-    }
-
-    @Override
-    public Tournament getRandomTournament() {
-        return tournamentEntityMapper.mapFromEntity(tournamentJpaRepository.findAll().stream().findFirst().get());
-    }
-
-    @Override
-    public Tournament findByIdWithoutResultsAchievementsMatchesSeason(Integer tournamentId) {
-        Optional<TournamentEntity> tournament = tournamentJpaRepository.findByIdWithoutResultsAchievementsMatchesSeason(tournamentId);
-        return tournament.map(tournamentEntityMapper::mapFromEntity).orElse(null);
     }
 
     @Override
@@ -68,12 +49,6 @@ public class TournamentRepository implements TournamentDAO {
     @Override
     public void endTournament(Integer tournamentId) {
         tournamentJpaRepository.endTournament(tournamentId);
-    }
-
-    @Override
-    public Tournament findTournamentWithResults(Integer tournamentId) {
-        Optional<TournamentEntity> tournament = tournamentJpaRepository.findById(tournamentId);
-        return tournament.map(tournamentEntityMapper::mapFromEntity).orElse(null);
     }
 
     @Override

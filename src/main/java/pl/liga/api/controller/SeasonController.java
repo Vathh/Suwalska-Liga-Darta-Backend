@@ -43,20 +43,22 @@ public class SeasonController {
         return seasonResultsMapper.map(season);
     }
 
-    @DeleteMapping(SEASON_DETAILS)
-    public void deleteSeason(
-            @RequestParam("seasonId") Integer seasonId
-    ){
-        seasonService.deleteSeason(seasonId);
-    }
-
     @PostMapping
     public ResponseEntity<?> addSeason(
             @Valid @RequestBody SeasonDTO seasonDTO
-            ){
+    ){
         Season season = seasonMapper.map(seasonDTO);
 
         seasonService.addSeason(season);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(SEASON_DETAILS)
+    public ResponseEntity<?> deleteSeason(
+            @RequestParam("seasonId") Integer seasonId
+    ){
+        seasonService.deleteSeason(seasonId);
 
         return ResponseEntity.ok().build();
     }
