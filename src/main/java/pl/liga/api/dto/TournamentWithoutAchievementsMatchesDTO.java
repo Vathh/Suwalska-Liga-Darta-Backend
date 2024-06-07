@@ -11,13 +11,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TournamentWithResultsAndAchievementsDTO {
+public class TournamentWithoutAchievementsMatchesDTO {
 
     private Integer tournamentId;
     private Date date;
+    private List<ResultDTO> results;
+    private Integer size;
     private Boolean active;
     private Boolean closed;
-    private List<ResultDTO> results;
-    private List<AchievementDTO> achievements;
-    private Integer size;
 }

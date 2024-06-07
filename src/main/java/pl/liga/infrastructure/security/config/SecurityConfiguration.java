@@ -21,8 +21,6 @@ import java.util.List;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static pl.liga.infrastructure.security.user.Permission.*;
-import static pl.liga.infrastructure.security.user.Role.ADMIN;
-import static pl.liga.infrastructure.security.user.Role.USER;
 
 @Configuration
 @EnableWebSecurity

@@ -4,8 +4,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 import pl.liga.domain.Player;
 import pl.liga.domain.Season;
 import pl.liga.domain.Tournament;

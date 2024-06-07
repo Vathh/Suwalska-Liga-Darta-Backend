@@ -3,9 +3,9 @@ package pl.liga.api.dto.mapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.liga.api.dto.TournamentDTO;
-import pl.liga.api.dto.TournamentWithResultsAndAchievementsDTO;
-import pl.liga.api.dto.TournamentWithResultsDTO;
-import pl.liga.api.dto.TournamentWithoutResultsDTO;
+import pl.liga.api.dto.TournamentWithoutAchievementsMatchesDTO;
+import pl.liga.api.dto.TournamentWithoutAchievementsResultsMatchesDTO;
+import pl.liga.api.dto.TournamentWithoutMatchesDTO;
 import pl.liga.domain.Tournament;
 
 @Component
@@ -16,8 +16,8 @@ public class TournamentMapperImpl {
     private final MatchMapperImpl matchMapperImpl;
     private final AchievementMapper achievementMapper;
 
-    public TournamentWithResultsDTO mapWithResults(Tournament tournament){
-        return TournamentWithResultsDTO.builder()
+    public TournamentWithoutAchievementsMatchesDTO mapWithResults(Tournament tournament){
+        return TournamentWithoutAchievementsMatchesDTO.builder()
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
                 .active(tournament.getActive())
@@ -30,8 +30,8 @@ public class TournamentMapperImpl {
                 .build();
     }
 
-    public TournamentWithResultsAndAchievementsDTO mapWithResultsAndAchievements(Tournament tournament){
-        return TournamentWithResultsAndAchievementsDTO.builder()
+    public TournamentWithoutMatchesDTO mapWithResultsAndAchievements(Tournament tournament){
+        return TournamentWithoutMatchesDTO.builder()
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
                 .size(tournament.getSize())
@@ -48,8 +48,8 @@ public class TournamentMapperImpl {
                 .build();
     }
 
-    public TournamentWithoutResultsDTO mapWithoutResults(Tournament tournament){
-        return TournamentWithoutResultsDTO.builder()
+    public TournamentWithoutAchievementsResultsMatchesDTO mapWithoutResults(Tournament tournament){
+        return TournamentWithoutAchievementsResultsMatchesDTO.builder()
                 .tournamentId(tournament.getTournamentId())
                 .date(tournament.getDate())
                 .size(tournament.getSize())

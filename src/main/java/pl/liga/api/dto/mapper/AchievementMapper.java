@@ -2,7 +2,6 @@ package pl.liga.api.dto.mapper;
 
 import org.mapstruct.Mapper;
 import pl.liga.api.dto.AchievementDTO;
-import pl.liga.api.dto.AddAchievementDTO;
 import pl.liga.domain.Achievement;
 
 @Mapper(componentModel = "spring")

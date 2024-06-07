@@ -2,8 +2,6 @@ package pl.liga.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.liga.domain.Player;
-import pl.liga.domain.Tournament;
 
 @Getter
 @Setter

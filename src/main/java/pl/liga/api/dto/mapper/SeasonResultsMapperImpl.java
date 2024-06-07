@@ -6,7 +6,10 @@ import pl.liga.api.dto.PlayerSummaryDTO;
 import pl.liga.api.dto.SeasonResultsDTO;
 import pl.liga.domain.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static pl.liga.domain.Helpers.*;
@@ -88,7 +91,5 @@ public class SeasonResultsMapperImpl {
                 .tournaments(tournaments.stream().map(tournamentMapperImpl::mapWithResults).toList())
                 .playerSummaries(playerSummaries)
                 .build();
-    };
-
-
+    }
 }

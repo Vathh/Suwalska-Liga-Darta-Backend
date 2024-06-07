@@ -12,6 +12,15 @@ import java.util.Set;
 
 @Repository
 public interface MatchJpaRepository extends JpaRepository<MatchEntity, Integer> {
+    @Query("""
+            SELECT mt FROM MatchEntity mt
+            LEFT JOIN FETCH mt.playerA
+            LEFT JOIN FETCH mt.playerB
+            LEFT JOIN FETCH mt.tournament
+            LEFT JOIN FETCH mt.tournament.season
+            WHERE mt.active = true
+            """)
+    Set<MatchEntity> findActiveMatches();
 
     @Query("""
             SELECT mt FROM MatchEntity mt
@@ -30,19 +39,9 @@ public interface MatchJpaRepository extends JpaRepository<MatchEntity, Integer> 
             """)
     Set<MatchEntity> findMatchesByTournamentId(final @Param("tournamentId") Integer tournamentId);
 
-    @Query("""
-            SELECT mt FROM MatchEntity mt
-            LEFT JOIN FETCH mt.playerA
-            LEFT JOIN FETCH mt.playerB
-            LEFT JOIN FETCH mt.tournament
-            LEFT JOIN FETCH mt.tournament.season
-            WHERE mt.active = true
-            """)
-    Set<MatchEntity> findActiveMatches();
-
     @Modifying
     @Query("""
-            UPDATE MatchEntity mt 
+            UPDATE MatchEntity mt
             SET mt.winner.playerId = :winnerId, mt.loser.playerId = :loserId, mt.active = false
             WHERE mt.matchId = :matchId
             """)

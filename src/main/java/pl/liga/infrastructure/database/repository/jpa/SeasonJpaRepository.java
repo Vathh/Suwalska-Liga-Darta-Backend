@@ -5,16 +5,22 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.liga.infrastructure.database.entity.AchievementEntity;
 import pl.liga.infrastructure.database.entity.SeasonEntity;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface SeasonJpaRepository extends JpaRepository<SeasonEntity, Integer> {
-
-    SeasonEntity findByName(String name);
+    @Override
+    @Query("""
+            SELECT sn FROM SeasonEntity sn
+            LEFT JOIN FETCH sn.tournaments
+            LEFT JOIN FETCH sn.tournaments.results
+            LEFT JOIN FETCH sn.tournaments.achievements
+            LEFT JOIN FETCH sn.tournaments.results.player
+            WHERE sn.toDelete = false
+            """)
+    List<SeasonEntity> findAll();
 
     @Query("""
             SELECT sn FROM SeasonEntity sn
@@ -27,21 +33,7 @@ public interface SeasonJpaRepository extends JpaRepository<SeasonEntity, Integer
             """)
     SeasonEntity findBySeasonId(final @Param("seasonId") Integer seasonId);
 
-    @Query("""
-            SELECT sn FROM SeasonEntity sn
-            LEFT JOIN FETCH sn.tournaments
-            """)
-    List<SeasonEntity> findAllWithTournaments();
-
-    @Query("""
-            SELECT sn FROM SeasonEntity sn
-            LEFT JOIN FETCH sn.tournaments            
-            LEFT JOIN FETCH sn.tournaments.results
-            LEFT JOIN FETCH sn.tournaments.achievements
-            LEFT JOIN FETCH sn.tournaments.results.player
-            WHERE sn.toDelete = false
-            """)
-    List<SeasonEntity> findAll();
+    SeasonEntity findByName(String name);
 
     @Modifying
     @Query("""

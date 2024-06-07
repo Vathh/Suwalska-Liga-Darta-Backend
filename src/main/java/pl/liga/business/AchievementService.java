@@ -19,7 +19,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class AchievementService {
-
     private final AchievementDAO achievementDAO;
 
     @Transactional

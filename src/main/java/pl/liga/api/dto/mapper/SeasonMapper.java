@@ -5,8 +5,6 @@ import pl.liga.api.dto.SeasonDTO;
 import pl.liga.domain.Season;
 import pl.liga.domain.Tournament;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring")
 public interface SeasonMapper {
 

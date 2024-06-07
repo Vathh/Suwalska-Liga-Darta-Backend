@@ -13,21 +13,18 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class PlayerService {
-
     private final PlayerDAO playerDAO;
-
-    @Transactional
-    public void addPlayer(Player player){
-        playerDAO.savePlayer(player);
-    }
 
     @Transactional
     public List<Player> findAllWithoutResults(){
         return playerDAO.findAllWithoutResults();
-    };
-
+    }
     @Transactional
     public List<Player> findPlayersByIdsWithoutResultsAndAchievements(List<Integer> playersIds){
         return playerDAO.findPlayersByIdsWithoutResultsAndAchievements(playersIds);
+    }
+    @Transactional
+    public void addPlayer(Player player){
+        playerDAO.savePlayer(player);
     }
 }

@@ -13,6 +13,6 @@ import java.util.List;
 public class SeasonResultsDTO {
 
     private String name;
-    private List<TournamentWithResultsDTO> tournaments;
+    private List<TournamentWithoutAchievementsMatchesDTO> tournaments;
     private List<PlayerSummaryDTO> playerSummaries;
 }

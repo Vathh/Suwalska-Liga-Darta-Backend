@@ -1,7 +1,6 @@
 package pl.liga.api.dto;
 
 import lombok.*;
-import pl.liga.domain.Match;
 
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,7 @@ public class TournamentDTO {
     private Integer tournamentId;
     private Date date;
     private List<MatchDTO> matches;
+    private Integer size;
     private Boolean active;
     private Boolean closed;
-    private Integer size;
 }

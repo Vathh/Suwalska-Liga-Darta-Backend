@@ -1,8 +1,6 @@
 package pl.liga.infrastructure.database.repository.mapper;
 
 import org.mapstruct.*;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 import pl.liga.domain.*;
 import pl.liga.infrastructure.database.entity.*;
 

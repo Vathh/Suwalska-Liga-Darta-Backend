@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -46,10 +45,4 @@ public class TournamentEntity {
     @ManyToOne
     @JoinColumn(name = "season_id")
     private SeasonEntity season;
-
-    public TournamentEntity(Integer tournamentId, Date date, Boolean closed){
-        this.tournamentId = tournamentId;
-        this.date = date;
-        this.closed = closed;
-    }
 }

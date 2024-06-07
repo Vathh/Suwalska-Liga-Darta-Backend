@@ -8,9 +8,6 @@ import pl.liga.api.dto.MatchResultDTO;
 import pl.liga.api.dto.UpdateMatchDTO;
 import pl.liga.business.dao.MatchDAO;
 import pl.liga.domain.Match;
-import pl.liga.domain.Player;
-import pl.liga.domain.Result;
-import pl.liga.domain.Tournament;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,17 +16,10 @@ import java.util.Objects;
 @Service
 @AllArgsConstructor
 public class MatchService {
-
     private final MatchDAO matchDAO;
-    private final BracketService bracketService;
     private final ResultService resultService;
     private final TournamentService tournamentService;
     private final AchievementService achievementService;
-
-    @Transactional
-    public List<Match> findMatchesByTournamentId(Integer tournamentId){
-        return matchDAO.findMatchesByTournamentId(tournamentId);
-    }
 
     @Transactional
     public List<Match> findActiveMatches(){
@@ -37,13 +27,15 @@ public class MatchService {
 
         return matches.stream().filter(match -> match.getPlayerA() != null && match.getPlayerB() != null).toList();
     }
-
+    @Transactional
+    public List<Match> findMatchesByTournamentId(Integer tournamentId){
+        return matchDAO.findMatchesByTournamentId(tournamentId);
+    }
     @Transactional
     public void addMatchResult(MatchResultDTO matchResultDTO){
         updateMatch(matchResultDTO.getUpdateMatchDTO());
         achievementService.addAchievements(matchResultDTO.getMatchAchievementsDTO());
     }
-
     @Transactional
     public void updateMatch(UpdateMatchDTO dto){
         matchDAO.updateMatch(dto.getMatchId(), dto.getWinnerId(), dto.getLoserId());
@@ -54,11 +46,8 @@ public class MatchService {
         }
 
         handleWinnerDestination(dto);
-
         handleLoserDestination(dto);
-
     }
-
     private void handleWinnerDestination(UpdateMatchDTO dto){
 
         Match winnerDestinationMatch = matchDAO.findMatch(dto.getWinnerDestinationMarkup(), dto.getTournamentId());
@@ -83,7 +72,6 @@ public class MatchService {
             updateMatch(handleEmptyMatchDto);
         }
     }
-
     private void handleLoserDestination(UpdateMatchDTO dto){
         if(dto.getLoserDestinationMarkup() == null || dto.getLoserDestinationMarkup().isEmpty() || Objects.equals(dto.getLoserDestinationMarkup(), "")){
             if(!dto.getLoserId().equals(1)){
@@ -127,7 +115,6 @@ public class MatchService {
             }
         }
     }
-
     private void handleFinal(UpdateMatchDTO dto){
         if(!dto.getLoserId().equals(1)){
             resultService.addResult(dto.getLoserId(), dto.getTournamentId(), dto.getPoints());

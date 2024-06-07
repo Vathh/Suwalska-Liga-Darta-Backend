@@ -27,19 +27,25 @@ public class TournamentService {
     public List<Tournament> findAllWithoutResultsAchievementsMatches(){
         return tournamentDAO.findAllWithoutResultsAchievementsMatches();
     }
-
+    @Transactional
+    public Tournament findByIdWithoutMatches(Integer tournamentId){
+        return tournamentDAO.findByIdWithoutMatches(tournamentId);
+    }
+    @Transactional
+    public Tournament findActiveTournament(){
+        return tournamentDAO.findActiveTournament();
+    }
     @Transactional
     public void saveTournament(Tournament tournament){
         tournamentDAO.saveTournament(tournament);
     }
-
     @Transactional
     public void startTournament(StartTournamentDTO dto){
         List<Integer> playersIds = List.of(dto.getPlayersIds());
 
         List<Player> players = playerService.findPlayersByIdsWithoutResultsAndAchievements(playersIds);
 
-        int size = 0;
+        int size;
         if(players.size() > 32 && players.size() <= 48){
             size = 48;
         } else if (players.size() <= 32 && players.size() > 16) {
@@ -58,27 +64,14 @@ public class TournamentService {
 
         saveTournament(tournamentToUpdate);
     }
-
-    @Transactional
-    public Tournament findActiveTournament(){
-        return tournamentDAO.findActiveTournament();
-    }
-
     @Transactional
     public void endTournament(Integer tournamentId){
         tournamentDAO.endTournament(tournamentId);
     }
-
-    @Transactional
-    public Tournament findByIdWithoutMatches(Integer tournamentId){
-        return tournamentDAO.findByIdWithoutMatches(tournamentId);
-    }
-
     @Transactional
     public void deleteTournament(Integer tournamentId){
         tournamentDAO.deleteTournament(tournamentId);
     }
-
     @Transactional
     public void cancelActiveTournament(Integer tournamentId) {
         tournamentDAO.cancelActiveTournament(tournamentId);

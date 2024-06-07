@@ -8,11 +8,9 @@ import pl.liga.infrastructure.database.entity.SchemaMatchEntity;
 import java.util.Set;
 
 public interface SchemaMatchJpaRepository extends JpaRepository<SchemaMatchEntity, Integer>{
-
     @Query("""
             SELECT sm FROM SchemaMatchEntity sm
             WHERE sm.schemaSize = :size
             """)
     Set<SchemaMatchEntity> findSchemaMatches(final @Param("size") Integer size);
-
 }

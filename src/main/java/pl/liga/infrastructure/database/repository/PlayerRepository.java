@@ -1,6 +1,5 @@
 package pl.liga.infrastructure.database.repository;
 
-import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.liga.business.dao.PlayerDAO;
@@ -28,17 +27,17 @@ public class PlayerRepository implements PlayerDAO {
     }
 
     @Override
-    public void savePlayer(Player player) {
-        PlayerEntity entity = playerEntityMapper.mapToEntity(player);
-        playerJpaRepository.saveAndFlush(entity);
-    }
-
-    @Override
     public List<Player> findPlayersByIdsWithoutResultsAndAchievements(List<Integer> playersIds) {
 
         return playerJpaRepository.findPlayersByIdsWithoutResultsAndAchievements(playersIds)
                 .stream()
                 .map(playerEntityMapper::mapFromEntity)
                 .toList();
+    }
+
+    @Override
+    public void savePlayer(Player player) {
+        PlayerEntity entity = playerEntityMapper.mapToEntity(player);
+        playerJpaRepository.saveAndFlush(entity);
     }
 }

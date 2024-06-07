@@ -10,7 +10,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TournamentWithoutResultsDTO {
+public class TournamentWithoutAchievementsResultsMatchesDTO {
 
     private Integer tournamentId;
     private Date date;

@@ -2,8 +2,6 @@ package pl.liga.api.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @Data
 @With
 @EqualsAndHashCode(of = {"name"})

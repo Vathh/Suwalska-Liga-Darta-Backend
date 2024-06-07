@@ -4,7 +4,10 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.liga.api.dto.*;
+import pl.liga.api.dto.StartTournamentDTO;
+import pl.liga.api.dto.TournamentDTO;
+import pl.liga.api.dto.TournamentWithoutAchievementsResultsMatchesDTO;
+import pl.liga.api.dto.TournamentWithoutMatchesDTO;
 import pl.liga.api.dto.mapper.TournamentMapperImpl;
 import pl.liga.business.TournamentService;
 import pl.liga.domain.Tournament;
@@ -25,7 +28,7 @@ public class TournamentController {
     private final TournamentMapperImpl tournamentMapper;
 
     @GetMapping
-    public List<TournamentWithoutResultsDTO> getTournamentsWithoutResults(){
+    public List<TournamentWithoutAchievementsResultsMatchesDTO> getTournamentsWithoutResults(){
         return tournamentService.findAllWithoutResultsAchievementsMatches()
                 .stream()
                 .map(tournamentMapper::mapWithoutResults)
@@ -40,7 +43,7 @@ public class TournamentController {
         return tournamentMapper.mapToDTO(tournament);
     }
     @GetMapping(TOURNAMENT_DETAILS)
-    public TournamentWithResultsAndAchievementsDTO getTournamentResults(
+    public TournamentWithoutMatchesDTO getTournamentResults(
             @RequestParam("tournamentId") Integer tournamentId
     ){
         Tournament tournament = tournamentService.findByIdWithoutMatches(tournamentId);

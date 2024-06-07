@@ -14,11 +14,11 @@ public class Tournament {
 
     Integer tournamentId;
     Date date;
-    Boolean active;
-    Boolean closed;
     List<Result> results;
     List<Achievement> achievements;
     List<Match> matches;
     Integer size;
+    Boolean active;
+    Boolean closed;
     Season season;
 }

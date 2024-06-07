@@ -13,12 +13,11 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SchemaService {
-
     private final SchemaMatchDAO schemaMatchDAO;
 
     @Transactional
     public List<SchemaMatch> getSchemaMatches(Integer playersCount){
-        int size = 0;
+        int size;
         if(playersCount > 32 && playersCount <= 48){
             size = 48;
         } else if (playersCount <= 32 && playersCount > 16) {

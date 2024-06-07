@@ -20,11 +20,11 @@ public class MatchRepository implements MatchDAO {
     private final MatchEntityMapper matchEntityMapper;
 
     @Override
-    public List<Match> findAll() {
-        return matchJpaRepository.findAll()
-                .stream()
-                .map(matchEntityMapper::mapFromEntity)
-                .toList();
+    public List<Match> findActiveMatches() {
+        return matchJpaRepository.findActiveMatches()
+                                .stream()
+                                .map(matchEntityMapper::mapFromEntity)
+                                .toList();
     }
 
     @Override
@@ -54,14 +54,6 @@ public class MatchRepository implements MatchDAO {
     @Override
     public void setPlayerB(Integer matchId, Integer playerId) {
        matchJpaRepository.setPlayerB(matchId, playerId);
-    }
-
-    @Override
-    public List<Match> findActiveMatches() {
-        return matchJpaRepository.findActiveMatches()
-                                .stream()
-                                .map(matchEntityMapper::mapFromEntity)
-                                .toList();
     }
 
     @Override

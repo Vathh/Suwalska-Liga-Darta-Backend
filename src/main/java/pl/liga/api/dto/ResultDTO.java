@@ -10,6 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ResultDTO {
 
-    private Integer pointsEarned;
     private String playerName;
+    private Integer pointsEarned;
 }

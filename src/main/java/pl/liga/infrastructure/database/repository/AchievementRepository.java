@@ -17,12 +17,9 @@ public class AchievementRepository implements AchievementDAO {
     private final AchievementEntityMapper achievementEntityMapper;
 
     @Override
-    public List<Achievement> findAll() {
-        return null;
-    }
-
-    @Override
     public void addAchievements(List<Achievement> achievements) {
-        achievementJpaRepository.saveAllAndFlush(achievements.stream().map(achievementEntityMapper::mapToEntity).toList());
+        achievementJpaRepository.saveAllAndFlush(achievements.stream()
+                                                                    .map(achievementEntityMapper::mapToEntity)
+                                                                    .toList());
     }
 }

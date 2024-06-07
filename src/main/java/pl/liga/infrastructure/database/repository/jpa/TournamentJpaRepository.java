@@ -12,23 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface TournamentJpaRepository extends JpaRepository<TournamentEntity, Integer> {
-
-    @Query("""
-            SELECT new TournamentEntity(tm.tournamentId, tm.date, tm.closed) FROM TournamentEntity tm
-            WHERE tm.tournamentId = :tournamentId
-            """)
-    Optional<TournamentEntity> findByIdWithoutResultsAchievementsMatchesSeason(final @Param("tournamentId")Integer tournamentId);
-
-    @Query("""
-            SELECT tm FROM TournamentEntity tm
-            LEFT JOIN FETCH tm.matches
-            LEFT JOIN FETCH tm.matches.playerA
-            LEFT JOIN FETCH tm.matches.playerB
-            LEFT JOIN FETCH tm.season
-            WHERE tm.active = true
-            """)
-    Optional<TournamentEntity> findActiveTournament();
-
     @Query("""
             SELECT tm FROM TournamentEntity tm
             LEFT JOIN FETCH tm.season
@@ -41,9 +24,19 @@ public interface TournamentJpaRepository extends JpaRepository<TournamentEntity,
             LEFT JOIN FETCH tm.results.player
             LEFT JOIN FETCH tm.achievements
             LEFT JOIN FETCH tm.season
-            WHERE tm.tournamentId = :tournamentId           
+            WHERE tm.tournamentId = :tournamentId
             """)
     Optional<TournamentEntity> findByIdWithoutMatches(final @Param("tournamentId")Integer tournamentId);
+
+    @Query("""
+            SELECT tm FROM TournamentEntity tm
+            LEFT JOIN FETCH tm.matches
+            LEFT JOIN FETCH tm.matches.playerA
+            LEFT JOIN FETCH tm.matches.playerB
+            LEFT JOIN FETCH tm.season
+            WHERE tm.active = true
+            """)
+    Optional<TournamentEntity> findActiveTournament();
 
     @Modifying
     @Query("""

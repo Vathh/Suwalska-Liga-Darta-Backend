@@ -13,7 +13,6 @@ import pl.liga.domain.Tournament;
 @Service
 @AllArgsConstructor
 public class ResultService {
-
     private final ResultDAO resultDAO;
 
     @Transactional

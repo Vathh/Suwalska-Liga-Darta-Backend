@@ -20,17 +20,14 @@ public class SeasonService {
     public List<Season> findAll(){
         return seasonDAO.findAll();
     }
-
-    @Transactional
-    public void addSeason(Season season){
-        seasonDAO.addSeason(season);
-    }
-
     @Transactional
     public Season findBySeasonId(Integer seasonId){
         return seasonDAO.findBySeasonId(seasonId);
     }
-
+    @Transactional
+    public void addSeason(Season season){
+        seasonDAO.addSeason(season);
+    }
     @Transactional
     public void deleteSeason(Integer seasonId){
         seasonDAO.deleteSeason(seasonId);

@@ -27,14 +27,6 @@ public class TournamentRepository implements TournamentDAO {
     }
 
     @Override
-    public void saveTournament(Tournament tournament) {
-
-        TournamentEntity tournamentEntity = tournamentEntityMapper.mapToEntity(tournament);
-
-        tournamentJpaRepository.save(tournamentEntity);
-    }
-
-    @Override
     public Tournament findByIdWithoutMatches(Integer tournamentId) {
         Optional<TournamentEntity> tournamentEntity = tournamentJpaRepository.findByIdWithoutMatches(tournamentId);
         return tournamentEntity.map(tournamentEntityMapper::mapFromEntityWithoutMatches).orElse(null);
@@ -47,17 +39,25 @@ public class TournamentRepository implements TournamentDAO {
     }
 
     @Override
+    public void saveTournament(Tournament tournament) {
+
+        TournamentEntity tournamentEntity = tournamentEntityMapper.mapToEntity(tournament);
+
+        tournamentJpaRepository.save(tournamentEntity);
+    }
+
+    @Override
     public void endTournament(Integer tournamentId) {
         tournamentJpaRepository.endTournament(tournamentId);
     }
 
     @Override
-    public void deleteTournament(Integer tournamentId) {
-        tournamentJpaRepository.deleteById(tournamentId);
+    public void cancelActiveTournament(Integer tournamentId) {
+        tournamentJpaRepository.cancelActiveTournament(tournamentId);
     }
 
     @Override
-    public void cancelActiveTournament(Integer tournamentId) {
-        tournamentJpaRepository.cancelActiveTournament(tournamentId);
+    public void deleteTournament(Integer tournamentId) {
+        tournamentJpaRepository.deleteById(tournamentId);
     }
 }

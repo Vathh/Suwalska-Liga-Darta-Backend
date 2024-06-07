@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.liga.api.dto.MatchDTO;
 import pl.liga.api.dto.MatchResultDTO;
-import pl.liga.api.dto.UpdateMatchDTO;
 import pl.liga.api.dto.mapper.MatchMapperImpl;
 import pl.liga.business.MatchService;
 import pl.liga.domain.Match;

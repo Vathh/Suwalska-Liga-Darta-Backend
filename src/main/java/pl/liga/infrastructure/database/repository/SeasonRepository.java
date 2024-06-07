@@ -33,6 +33,11 @@ public class SeasonRepository implements SeasonDAO {
     }
 
     @Override
+    public Season findBySeasonId(Integer seasonId) {
+        return seasonEntityMapper.mapFromEntity(seasonJpaRepository.findBySeasonId(seasonId));
+    }
+
+    @Override
     public void addSeason(Season season) {
         seasonJpaRepository.saveAndFlush(
                 seasonEntityMapper.mapToEntity(season)
@@ -45,11 +50,6 @@ public class SeasonRepository implements SeasonDAO {
                                                         .toList();
         tournamentEntities.forEach(tournamentEntity -> tournamentEntity.setSeason(seasonEntity));
         tournamentJpaRepository.saveAllAndFlush(tournamentEntities);
-    }
-
-    @Override
-    public Season findBySeasonId(Integer seasonId) {
-        return seasonEntityMapper.mapFromEntity(seasonJpaRepository.findBySeasonId(seasonId));
     }
 
     @Override

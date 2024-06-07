@@ -3,17 +3,17 @@ package pl.liga.business;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.liga.domain.*;
+import pl.liga.domain.Match;
+import pl.liga.domain.Player;
+import pl.liga.domain.SchemaMatch;
+import pl.liga.domain.Tournament;
 
 import java.util.*;
-
-import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Service
 @AllArgsConstructor
 public class BracketService {
-
     private final SchemaService schemaService;
 
     public List<Match> getBracket(List<Player> players, Tournament tournament){
@@ -46,19 +46,17 @@ public class BracketService {
                         .points(schemaMatch.getPoints())
                         .active(true)
                         .build()
-        ).toList());
+            ).toList());
 
         for(Match match : matches){
             handleEmptyMatch(match, matches);
         }
 
         return matches;
-    };
-
-
+    }
     public ArrayList<Integer> getRandomNumbers(Integer size){
 
-        int numbersCount = 0;
+        int numbersCount;
         if(size > 32 && size <= 48){
             numbersCount = 48;
         } else if (size <= 32 && size > 16) {
@@ -84,8 +82,7 @@ public class BracketService {
         }
 
         return result;
-    };
-
+    }
     private void handleEmptyMatch(Match match, List<Match> matches){
         if(match.getPlayerA() != null && match.getPlayerA().getName().equals("EMPTY") && match.getPlayerB() != null){
             match.setWinner(match.getPlayerB());
@@ -103,7 +100,6 @@ public class BracketService {
             moveLoserToNextMatch(match, matches);
         }
     }
-
     private void moveWinnerToNextMatch(Match match, List<Match> matches){
         String winnerDestinationMarkup = match.getWinnerDestinationMarkup();
 
@@ -118,9 +114,7 @@ public class BracketService {
             }
         }
     }
-
     private void moveLoserToNextMatch(Match match, List<Match> matches){
-
         String loserDestinationMarkup = match.getLoserDestinationMarkup();
 
         if(loserDestinationMarkup == null){
