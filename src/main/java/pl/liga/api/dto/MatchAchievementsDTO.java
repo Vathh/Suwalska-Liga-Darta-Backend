@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class MatchAchievementsDTO {
 
-    List<AddAchievementDTO>  max;
+    List<AddAchievementDTO> max;
     List<AddAchievementDTO> oneSeventy;
     List<AddAchievementDTO> hf;
     List<AddAchievementDTO> qf;

@@ -14,6 +14,7 @@ import pl.liga.domain.Tournament;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -29,75 +30,42 @@ public class AchievementService {
         List<Achievement> achievements = new ArrayList<>();
 
         if(dto.getMax() != null){
-            List<AddAchievementDTO> max = dto.getMax();
-            max.forEach(addAchievementDTO -> {
-                Achievement maxAchievement = Achievement.builder()
-                        .player(Player.builder()
-                                .playerId(addAchievementDTO.getPlayerId())
-                                .build())
-                        .tournament(Tournament.builder()
-                                .tournamentId(addAchievementDTO.getTournamentId())
-                                .build())
-                        .type(AchievementType.MAX)
-                        .value(null)
-                        .build();
-                achievements.add(maxAchievement);
-            });
+            List<Achievement> max = prepareAchievements(dto.getMax(), AchievementType.MAX);
+            achievements.addAll(max);
         }
 
         if(dto.getOneSeventy() != null){
-            List<AddAchievementDTO> oneSeventy = dto.getOneSeventy();
-            oneSeventy.forEach(addAchievementDTO -> {
-                Achievement oneSeventyAchievement = Achievement.builder()
-                        .player(Player.builder()
-                                .playerId(addAchievementDTO.getPlayerId())
-                                .build())
-                        .tournament(Tournament.builder()
-                                .tournamentId(addAchievementDTO.getTournamentId())
-                                .build())
-                        .type(AchievementType.ONESEVENTY)
-                        .value(addAchievementDTO.getValue())
-                        .build();
-                achievements.add(oneSeventyAchievement);
-            });
+            List<Achievement> oneSeventies = prepareAchievements(dto.getOneSeventy(), AchievementType.ONESEVENTY);
+            achievements.addAll(oneSeventies);
         }
 
         if(dto.getHf() != null){
-            List<AddAchievementDTO> hf = dto.getHf();
-            hf.forEach(addAchievementDTO -> {
-                Achievement hfAchievement = Achievement.builder()
-                        .player(Player.builder()
-                                .playerId(addAchievementDTO.getPlayerId())
-                                .build())
-                        .tournament(Tournament.builder()
-                                .tournamentId(addAchievementDTO.getTournamentId())
-                                .build())
-                        .type(AchievementType.HF)
-                        .value(addAchievementDTO.getValue())
-                        .build();
-                achievements.add(hfAchievement);
-            });
+            List<Achievement> hfs = prepareAchievements(dto.getHf(), AchievementType.HF);
+            achievements.addAll(hfs);
         }
 
         if(dto.getQf() != null){
-            List<AddAchievementDTO> qf = dto.getQf();
-            qf.forEach(addAchievementDTO -> {
-                Achievement qfAchievement = Achievement.builder()
-                        .player(Player.builder()
-                                .playerId(addAchievementDTO.getPlayerId())
-                                .build())
-                        .tournament(Tournament.builder()
-                                .tournamentId(addAchievementDTO.getTournamentId())
-                                .build())
-                        .type(AchievementType.QF)
-                        .value(addAchievementDTO.getValue())
-                        .build();
-                achievements.add(qfAchievement);
-            });
+            List<Achievement> qfs = prepareAchievements(dto.getQf(), AchievementType.QF);
+            achievements.addAll(qfs);
         }
 
         if(achievements.size() > 0){
             achievementDAO.addAchievements(achievements);
         }
+    }
+
+    private List<Achievement> prepareAchievements(List<AddAchievementDTO> dtos, String type){
+        return dtos.stream().map(addAchievementDTO ->
+                                    Achievement.builder()
+                                                .player(Player.builder()
+                                                        .playerId(addAchievementDTO.getPlayerId())
+                                                        .build())
+                                                .tournament(Tournament.builder()
+                                                        .tournamentId(addAchievementDTO.getTournamentId())
+                                                        .build())
+                                                .type(type)
+                                                .value(Objects.equals(type, AchievementType.MAX) ? null : addAchievementDTO.getValue())
+                                                .build())
+                                            .toList();
     }
 }
