@@ -42,6 +42,13 @@ Zapytania do API przechodzą proces autoryzacji, oto lista dostępnych opcji z p
   - Pobranie statystyk wybranego turnieju
 
 Technologies used:
+- Spring Framework:
+  - Spring Boot
+  - Spring Data JPA
+  - Spring Security With JWT
+- Gradle
+- PostgreSQL Database
+- Flyway
 - 
 
   
