@@ -1,54 +1,61 @@
-To jest API stworzone do zarządzania rozgrywkami turniejowymi darta. 
-Zostało stworzone z myślą o usprawnieniu organizacji lokalnych zawodów rozgrywanych corocznie z podziałem na sezon wiosenny oraz jesienny. 
-Każdy sezon składa się z kilkunastu turniejów odbywających się co tydzień. Turniej rozgrywany jest w systemie 'double K.O.', co oznacza, że porażka w jednym meczu nie oznacza przegranej w całym turnieju.
-Uczestnicy dostają punkty w zależności od pozycji na jakiej skończyli dany turniej. Prowadzona jest tabela wyników w której pozycja ustalana jest na podstawie sumy punktów zebranych w danym sezonie.
-Ponadto zbierane są również statystyki dotyczące 'achievements' czyli 180's (podejść 180 punktowych), 170+ (podejść 170+), quick finish (skończenia lega poniżej 20 rzutów), high finish (skończenia lega wartością powyżej 99).
+This is an API created to manage dart tournament games. It was designed to streamline the organization of local competitions held annually, divided into the spring and autumn seasons. Each season consists of several weekly tournaments. The tournament is played in a 'double K.O.' system, which means that losing one match does not mean losing the entire tournament.
 
-Aplikacja umożliwia:
-- Przechowywanie graczy w bazie danych
-- Tworzenie drabinek turniejowych w systemie 'double K.O.' dla 16, 32 lub 48 graczy (lub mniej)
-- Przechowywanie statystyk i historii turniejów z podziałem na sezony
-- Przechowywanie statystyk dotyczących osiągnięć (180, 170+, QF, HF)
-- Pobranie listy i szczegółów rozegranych turniejów z podziałem na sezony
-- Pobranie statystyk graczy z podziałem na sezony
+Participants earn points based on their final positions in each tournament. A leaderboard is maintained, where the ranking is determined by the total points accumulated in a given season. Additionally, statistics regarding 'achievements' such as 180's (180-point turns), 170+ (170+ point turns), quick finish (leg finished in less than 20 darts), and high finish (leg finished with a value above 99) are collected.
 
-Schemat prowadzenia turnieju jest następujący:
-- Stworzenie sezonu wraz z turniejami
-- Dodanie graczy do bazy danych
-- Aktywacja wybranego turnieju, rozlosowanie meczów drabinki turniejowej dla wybranych graczy
-- Aktualizacja meczów dla aktywnego turnieju
+# **Features**
 
-Zapytania do API przechodzą proces autoryzacji, oto lista dostępnych opcji z podziałem na role:
-1. Admin:
-  - Dodawanie nowego gracza
-  - Dodawanie nowego sezonu/turnieju
-  - Aktywacja turnieju
-  - Anulowanie aktywnego turnieju
-  - Usuwanie sezonu/turnieju
-  + Poniższe
-2. User:
-  - Pobranie aktywnych meczy
-  - Dodanie nowego achievement
-  - Aktualizacja meczu
-  + Poniższe
-3. Użytkownik niezalogowany:
-  - Logowanie do aplikacji
-  - Pobranie listy meczy dla określonego turnieju
-  - Pobranie listy graczy
-  - Pobranie listy sezonów
-  - Pobranie statystyk sezonu
-  - Pobranie listy turniejów dla określonego sezonu
-  - Pobranie szczegółów aktywnego turnieju
-  - Pobranie statystyk wybranego turnieju
+### The application allows:
+- Storing players in a database
+- Creating 'double K.O.' tournament brackets for 16, 32, or 48 players (or fewer)
+- Storing statistics and tournament histories divided by seasons and players
+- Storing achievements statistics (180, 170+, QF, HF)
 
-Technologies used:
+### **Tournament Management Workflow:**
+- Creating a season with tournaments
+- Adding players to the database
+- Activating the selected tournament, drawing matches for the tournament bracket for selected players
+- Updating matches for the active tournament
+
+### **API Endpoints and Roles**
+
+API requests go through an authorization process. Here is a list of available endpoints divided by roles:
+
+### **Admin:**
+  - Add a new player
+  - Add a new season/tournament
+  - Activate a tournament
+  - Cancel an active tournament
+  - Delete a season/tournament
+  - User permissions listed below
+### **User:**
+  - Fetch active matches
+  - Add a new achievement
+  - Update a match
+  - Unauthenticated user permissions listed below
+### **Unauthenticated User:**      
+  - Log into the application
+  - Fetch the list of matches for a specific tournament
+  - Fetch the list of players
+  - Fetch the list of seasons
+  - Fetch season statistics
+  - Fetch the list of tournaments for a specific season
+  - Fetch details of an active tournament
+  - Fetch statistics of a selected tournament
+
+## Technologies used:
 - Spring Framework:
   - Spring Boot
   - Spring Data JPA
   - Spring Security With JWT
-- Gradle
-- PostgreSQL Database
-- Flyway
-- 
+- Gradle as a build tool
+- PostgreSQL database
+- Flyway for database migrations
+- Thymeleaf for templating
+- Lombok for boilerplate code reduction
+- MapStruct for object mapping
+- JUnit and Mockito for testing
+- Testcontainers for containerized testing
+- WireMock for HTTP stubbing and mocking
+- REST Assured for API testing
 
-  
+**Getting Started**
