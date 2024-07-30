@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pl.liga.business.BracketServiceUnitTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-07-30T18:10:31" hostname="DESKTOP-CASNL73" time="0.101">
-  <properties/>
-  <testcase name="thatMovingWinnerToNextMatchWorksCorrectly()" classname="pl.liga.business.BracketServiceUnitTests" time="0.101"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
