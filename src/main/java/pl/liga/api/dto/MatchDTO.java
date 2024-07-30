@@ -12,10 +12,10 @@ import lombok.*;
 public class MatchDTO {
 
     Integer matchId;
-    PlayerWithoutAchievementsResultsDTO playerA;
-    PlayerWithoutAchievementsResultsDTO playerB;
-    PlayerWithoutAchievementsResultsDTO winner;
-    PlayerWithoutAchievementsResultsDTO loser;
+    PlayerNameDTO playerA;
+    PlayerNameDTO playerB;
+    PlayerNameDTO winner;
+    PlayerNameDTO loser;
     Integer tournamentId;
     String markup;
     String winnerDestinationMarkup;

@@ -22,7 +22,7 @@ import pl.liga.infrastructure.database.entity.TournamentEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-04T19:02:45+0200",
+    date = "2024-07-29T16:15:17+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -43,9 +43,9 @@ public class TournamentEntityMapperImpl implements TournamentEntityMapper {
 
         tournament.tournamentId( entity.getTournamentId() );
         tournament.date( entity.getDate() );
+        tournament.size( entity.getSize() );
         tournament.active( entity.getActive() );
         tournament.closed( entity.getClosed() );
-        tournament.size( entity.getSize() );
         tournament.season( seasonEntityToSeason( entity.getSeason() ) );
 
         return tournament.build();
@@ -63,10 +63,10 @@ public class TournamentEntityMapperImpl implements TournamentEntityMapper {
 
         tournament.tournamentId( entity.getTournamentId() );
         tournament.date( entity.getDate() );
-        tournament.active( entity.getActive() );
-        tournament.closed( entity.getClosed() );
         tournament.matches( matchEntitySetToMatchList( entity.getMatches() ) );
         tournament.size( entity.getSize() );
+        tournament.active( entity.getActive() );
+        tournament.closed( entity.getClosed() );
         tournament.season( seasonEntityToSeason( entity.getSeason() ) );
 
         return tournament.build();
@@ -84,11 +84,11 @@ public class TournamentEntityMapperImpl implements TournamentEntityMapper {
 
         tournament.tournamentId( entity.getTournamentId() );
         tournament.date( entity.getDate() );
-        tournament.active( entity.getActive() );
-        tournament.closed( entity.getClosed() );
         tournament.results( resultEntitySetToResultList( entity.getResults() ) );
         tournament.achievements( achievementEntitySetToAchievementList( entity.getAchievements() ) );
         tournament.size( entity.getSize() );
+        tournament.active( entity.getActive() );
+        tournament.closed( entity.getClosed() );
         tournament.season( seasonEntityToSeason( entity.getSeason() ) );
 
         return tournament.build();
@@ -106,12 +106,12 @@ public class TournamentEntityMapperImpl implements TournamentEntityMapper {
 
         tournament.tournamentId( entity.getTournamentId() );
         tournament.date( entity.getDate() );
-        tournament.active( entity.getActive() );
-        tournament.closed( entity.getClosed() );
         tournament.results( resultEntitySetToResultList( entity.getResults() ) );
         tournament.achievements( achievementEntitySetToAchievementList( entity.getAchievements() ) );
         tournament.matches( matchEntitySetToMatchList( entity.getMatches() ) );
         tournament.size( entity.getSize() );
+        tournament.active( entity.getActive() );
+        tournament.closed( entity.getClosed() );
         tournament.season( seasonEntityToSeason( entity.getSeason() ) );
 
         return tournament.build();

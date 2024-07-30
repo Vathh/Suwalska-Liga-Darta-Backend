@@ -12,8 +12,8 @@ public class PlayerDTO {
 
     private Integer playerId;
     private String name;
-    private Integer hf;
-    private Integer qf;
     private Integer max;
     private Integer oneSeventy;
+    private Integer hf;
+    private Integer qf;
 }

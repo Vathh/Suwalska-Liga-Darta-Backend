@@ -81,5 +81,5 @@ tasks.named('test') {
 }
 
 bootJar {
-    archiveFileName = "ogarnizer.${archiveExtension.get()}"
+    archiveFileName = "league.${archiveExtension.get()}"
 }

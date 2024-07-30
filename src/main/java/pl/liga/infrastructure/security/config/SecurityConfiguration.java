@@ -62,9 +62,9 @@ public class SecurityConfiguration {
                                     "/match/active").hasAnyAuthority(USER_READ.getPermission())
                             .requestMatchers(POST,
                                     "/achievement",
-                                            "/authorization/refresh").hasAnyAuthority(USER_CREATE.getPermission())
+                                             "/authorization/refresh").hasAnyAuthority(USER_CREATE.getPermission())
                             .requestMatchers(PATCH,
-                                    "/match/details").hasAnyAuthority(USER_UPDATE.getPermission())
+                                    "/match").hasAnyAuthority(USER_UPDATE.getPermission())
                             .requestMatchers(DELETE,
                                     "").hasAnyAuthority(USER_DELETE.getPermission())
 
@@ -72,13 +72,14 @@ public class SecurityConfiguration {
                                     "").hasAnyAuthority(ADMIN_READ.getPermission())
                             .requestMatchers(POST,
                                     "/player",
-                                            "/season"
+                                             "/season"
                             ).hasAnyAuthority(ADMIN_CREATE.getPermission())
                             .requestMatchers(PATCH,
-                                    "/tournament/start").hasAnyAuthority(ADMIN_UPDATE.getPermission())
+                                    "/tournament/start",
+                                             "/tournament/details").hasAnyAuthority(ADMIN_UPDATE.getPermission())
                             .requestMatchers(DELETE,
                                     "/season/details",
-                                    "/tournament/details").hasAnyAuthority(ADMIN_DELETE.getPermission())
+                                             "/tournament/details").hasAnyAuthority(ADMIN_DELETE.getPermission())
                             .anyRequest()
                             .authenticated()
                 )

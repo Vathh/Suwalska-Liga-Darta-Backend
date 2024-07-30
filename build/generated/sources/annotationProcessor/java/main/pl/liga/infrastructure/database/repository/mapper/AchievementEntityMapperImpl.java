@@ -22,7 +22,7 @@ import pl.liga.infrastructure.database.entity.TournamentEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-04T19:02:45+0200",
+    date = "2024-07-29T16:15:17+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -204,12 +204,12 @@ public class AchievementEntityMapperImpl implements AchievementEntityMapper {
 
         tournament.tournamentId( tournamentEntity.getTournamentId() );
         tournament.date( tournamentEntity.getDate() );
-        tournament.active( tournamentEntity.getActive() );
-        tournament.closed( tournamentEntity.getClosed() );
         tournament.results( resultEntitySetToResultList( tournamentEntity.getResults() ) );
         tournament.achievements( achievementEntitySetToAchievementList( tournamentEntity.getAchievements() ) );
         tournament.matches( matchEntitySetToMatchList( tournamentEntity.getMatches() ) );
         tournament.size( tournamentEntity.getSize() );
+        tournament.active( tournamentEntity.getActive() );
+        tournament.closed( tournamentEntity.getClosed() );
         tournament.season( seasonEntityToSeason( tournamentEntity.getSeason() ) );
 
         return tournament.build();

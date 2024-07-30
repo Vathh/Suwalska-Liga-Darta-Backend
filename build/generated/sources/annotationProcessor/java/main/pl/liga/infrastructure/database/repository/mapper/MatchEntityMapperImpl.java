@@ -21,7 +21,7 @@ import pl.liga.infrastructure.database.entity.TournamentEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-04T19:02:45+0200",
+    date = "2024-07-29T16:15:18+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -108,9 +108,9 @@ public class MatchEntityMapperImpl implements MatchEntityMapper {
 
         tournament.tournamentId( entity.getTournamentId() );
         tournament.date( entity.getDate() );
+        tournament.size( entity.getSize() );
         tournament.active( entity.getActive() );
         tournament.closed( entity.getClosed() );
-        tournament.size( entity.getSize() );
 
         return tournament.build();
     }

@@ -9,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class MatchAchievementsDTO {
 
     List<AddAchievementDTO> max;

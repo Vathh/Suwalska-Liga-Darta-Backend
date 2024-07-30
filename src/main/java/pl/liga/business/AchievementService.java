@@ -54,18 +54,19 @@ public class AchievementService {
         }
     }
 
-    private List<Achievement> prepareAchievements(List<AddAchievementDTO> dtos, String type){
-        return dtos.stream().map(addAchievementDTO ->
-                                    Achievement.builder()
-                                                .player(Player.builder()
-                                                        .playerId(addAchievementDTO.getPlayerId())
-                                                        .build())
-                                                .tournament(Tournament.builder()
-                                                        .tournamentId(addAchievementDTO.getTournamentId())
-                                                        .build())
-                                                .type(type)
-                                                .value(Objects.equals(type, AchievementType.MAX) ? null : addAchievementDTO.getValue())
+    public List<Achievement> prepareAchievements(List<AddAchievementDTO> dtos, String type){
+        return dtos.stream()
+                    .map(addAchievementDTO ->
+                            Achievement.builder()
+                                        .player(Player.builder()
+                                                .playerId(addAchievementDTO.getPlayerId())
                                                 .build())
-                                            .toList();
+                                        .tournament(Tournament.builder()
+                                                .tournamentId(addAchievementDTO.getTournamentId())
+                                                .build())
+                                        .type(type)
+                                        .value(Objects.equals(type, AchievementType.MAX) ? null : addAchievementDTO.getValue())
+                                        .build())
+                                    .toList();
     }
 }

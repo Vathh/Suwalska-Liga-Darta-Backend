@@ -3,7 +3,7 @@ package pl.liga.api.dto.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import pl.liga.api.dto.PlayerDTO;
-import pl.liga.api.dto.PlayerWithoutAchievementsResultsDTO;
+import pl.liga.api.dto.PlayerNameDTO;
 import pl.liga.domain.Achievement;
 import pl.liga.domain.AchievementType;
 import pl.liga.domain.Player;
@@ -52,8 +52,8 @@ public interface PlayerMapper {
         return dto;
     };
 
-    default PlayerWithoutAchievementsResultsDTO mapWithoutAchievementsResults(final Player player){
-        return PlayerWithoutAchievementsResultsDTO.builder()
+    default PlayerNameDTO mapWithoutAchievementsResults(final Player player){
+        return PlayerNameDTO.builder()
                 .playerId(player.getPlayerId())
                 .name(player.getName())
                 .build();

@@ -18,7 +18,6 @@ import java.util.List;
 public class MatchController {
 
     public static final String MATCH = "/match";
-    public static final String MATCH_DETAILS = "/details";
     public static final String MATCH_ACTIVE = "/active";
 
     private final MatchService matchService;
@@ -40,7 +39,7 @@ public class MatchController {
         return matches.stream().map(matchMapper::map).toList();
     }
 
-    @PatchMapping(MATCH_DETAILS)
+    @PatchMapping
     public ResponseEntity<?> updateMatch(
             @Valid @RequestBody MatchResultDTO dto
     ){

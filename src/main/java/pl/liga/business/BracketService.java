@@ -103,15 +103,15 @@ public class BracketService {
     private void moveWinnerToNextMatch(Match match, List<Match> matches){
         String winnerDestinationMarkup = match.getWinnerDestinationMarkup();
 
-        for(Match nextMatch : matches){
-            if(winnerDestinationMarkup.equals(nextMatch.getMarkup())){
-                if(nextMatch.getPlayerA() == null){
-                    nextMatch.setPlayerA(match.getWinner());
-                } else {
-                    nextMatch.setPlayerB(match.getWinner());
-                }
-                break;
-            }
+        Match nextMatch = matches.stream()
+                                .filter(mt -> mt.getMarkup().equals(winnerDestinationMarkup))
+                                .findFirst()
+                                .orElseThrow();
+
+        if(nextMatch.getPlayerA() == null){
+            nextMatch.setPlayerA(match.getWinner());
+        } else {
+            nextMatch.setPlayerB(match.getWinner());
         }
     }
     private void moveLoserToNextMatch(Match match, List<Match> matches){
@@ -121,15 +121,15 @@ public class BracketService {
             return;
         }
 
-        for(Match nextMatch : matches){
-            if(loserDestinationMarkup.equals(nextMatch.getMarkup())){
-                if(nextMatch.getPlayerA() == null){
-                    nextMatch.setPlayerA(match.getLoser());
-                } else {
-                    nextMatch.setPlayerB(match.getLoser());
-                }
-                break;
-            }
+        Match nextMatch = matches.stream()
+                                .filter(mt -> mt.getMarkup().equals(loserDestinationMarkup))
+                                .findFirst()
+                                .orElseThrow();
+
+        if(nextMatch.getPlayerA() == null){
+            nextMatch.setPlayerA(match.getLoser());
+        } else {
+            nextMatch.setPlayerB(match.getLoser());
         }
     }
 }

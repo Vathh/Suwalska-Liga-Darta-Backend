@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class MatchResultDTO {
 
     MatchAchievementsDTO matchAchievementsDTO;
