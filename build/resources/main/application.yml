@@ -1,0 +1,62 @@
+server:
+  port: 8190
+  servlet:
+    context-path: /dart_league
+security:
+  jwt:
+    secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+    expiration: 3600000
+    refresh-token:
+      expiration: 3600000
+spring:
+  security:
+    enabled: true
+#    enabled: false
+    filter:
+      order : 10
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/league
+    username: postgres
+    password: postgres
+    hikari:
+      idle-timeout: 10000
+      connectionTimeout: 20000
+      minimumIdle: 10
+      maximumPoolSize: 20
+  flyway:
+    baselineOnMigrate: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+#        show_sql: true
+#        format_sql: true
+        #        use_sql_comments: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+logging:
+  level:
+    org:
+      mapstruct:
+        TRACE
+      hibernate:
+        SQL:
+          DEBUG
+        type:
+          descriptor:
+            sql:
+              TRACE
+web:
+  cors:
+#    allowed-origins: "http://localhost:3000"
+    allowed-origins: "*"
+    allowed-methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
+    max-age: 3600
+    allowed-headers: "Requestor-Type, Content-Type"
+    exposed-headers: "X-Get-Header"
