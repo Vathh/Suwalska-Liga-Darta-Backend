@@ -53,5 +53,3 @@ API requests go through an authorization process. Here is a list of available en
 - Thymeleaf for templating
 - Lombok for boilerplate code reduction
 - MapStruct for object mapping
-
-**Getting Started**
